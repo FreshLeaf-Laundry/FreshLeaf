@@ -15,14 +15,15 @@ Sebelum Anda mulai, pastikan Anda telah menginstal perangkat lunak berikut:
 
 ### 1. Clone Repositori
 
-Pertama, clone repositori proyek ke folder kosong:
+Pertama, clone repositori proyek ke folder kosong
 
 
 ### 2. Buat .env baru
 
 copy .env.example yang udh gw buat ke .env (.env gabisa diupload ke github):
-
-bash cp .env.example .env
+```
+cp .env.example .env
+```
 
 ### 3. Buat Database
 
@@ -33,23 +34,27 @@ bash cp .env.example .env
 ### 4. Instal Dependencies
 
 tulis ini di terminal buat install dependencies:
-
-bash composer install
+```
+composer install
+```
 
 ### 5. Generate key
 
 habistu tulis ini di terminal:
-
-bash php artisan key:generate
+```
+php artisan key:generate
+```
 
 ### 6. Jalankan Migrasi
 
 kalau database udah ada, jalanin migration biar ada tabelnya:
-
-bash php artisan migrate
+```
+php artisan migrate
+```
 
 ### 7. Jalankan Aplikasi
 
 start development server biar keliatan websitenya kek apa:
-
-bash php artisan serve
+```
+php artisan serve
+```
