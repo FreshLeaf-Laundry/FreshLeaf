@@ -1,15 +1,12 @@
-# Panduan Pengaturan Proyek Freshleaf
+# Tutorial mulai
 
-Selamat datang di proyek Freshleaf! Ikuti langkah-langkah di bawah ini untuk mengatur lingkungan pengembangan lokal Anda.
+## Yang harus udah diinstall
 
-## Prasyarat
 
-Sebelum Anda mulai, pastikan Anda telah menginstal perangkat lunak berikut:
-
-- PHP (versi 7.3 atau lebih tinggi)
+- PHP 
 - Composer
-- MySQL (atau MariaDB)
-- Laravel (opsional, untuk instalasi global)
+- MySQL 
+- Laravel 
 
 ## Memulai
 
