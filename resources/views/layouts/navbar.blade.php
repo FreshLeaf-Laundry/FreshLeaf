@@ -5,7 +5,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto"> <!-- ul buat tombol navigasi -->
+            <ul class="navbar-nav me-auto"> <!-- ul untuk tombol navigasi -->
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
                 </li>
@@ -13,67 +13,65 @@
                     <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">About</a>
                 </li>
             </ul>
-            <ul class="navbar-nav"> <!-- ul buat tombol login/ register -->
+            <ul class="navbar-nav"> <!-- ul untuk tombol login/register -->
                 <li class="nav-item">
-                    <a class="nav-link btn loginbutton" href="{{ route('home') }}">Login</a>
+                    <a class="nav-link btn loginbutton px-3 py-1" href="{{ route('login') }}">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn registerbutton" href="{{ route('home') }}">Register</a>
+                    <a class="nav-link btn registerbutton px-3 py-1" href="{{ route('register') }}">Register</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
-
 <style>
-    .navbar-brand{
-        color:#347928;
+    .navbar-brand {
+        color: var(--hijau-tua-primary); 
     }
-    .navbar-brand:hover{
-        color:#FCCD2A;
+    .navbar-brand:hover {
+        color: var(--kuning-secondary); 
     }
-    .navbar{
-        background-color: #FFFBE6;
-        height: 15vh;
+    .navbar {
+        background-color: var(--krem-primary); 
+        height: 15vh; 
         padding-left: 20px; 
         padding-right: 20px; 
-        font-size: 22px;
+        font-size: 22px; 
     }
-    .navbar-nav .nav-link{
-        transition: background-color 0.3s,
-        color 0.3s;
-        color: #d4d4d4
+    .navbar-nav .nav-link {
+        transition: background-color 0.3s, color 0.3s; 
+        color: #d4d4d4; 
     }
-    .navbar-nav .nav-link.active{
-        /* background-color: #33aa20; */
-        color: #347928;
-        /* border-radius: 7px; */
-        border-bottom: 2px solid #347928;
+    .navbar-nav .nav-link.active {
+        color: var(--hijau-tua-primary); 
+        border-bottom: 2px solid var(--hijau-tua-primary); 
     }
-    .navbar-nav .nav-link:hover{
-        color: #347928;
+    .navbar-nav .nav-link:hover {
+        color: var(--hijau-tua-primary); 
     }
-    .navbar-nav .nav-item .loginbutton{
-        background-color: #347928;
-        color: #FFFBE6;
-        padding-left: 32px;
-        padding-right: 32px;
-        border: 2px solid #347928;
+    .navbar-nav .nav-item .loginbutton {
+        background-color: var(--hijau-tua-primary); 
+        color: var(--krem-primary); 
+        border: 2px solid var(--hijau-tua-primary); 
     }
-    .navbar-nav .nav-item .loginbutton:hover{
-        color: #347928;
-        background-color: #FFFBE6;
+    .navbar-nav .nav-item .loginbutton:hover {
+        color: var(--hijau-tua-primary); 
+        background-color: var(--krem-primary); 
     }
-    .navbar-nav .nav-item .registerbutton{
-        color: #347928;
-        margin-left: 20px;
-        padding-left: 32px;
-        padding-right: 32px;
-        border: 2px solid #347928;
+    .navbar-nav .nav-item .registerbutton {
+        color: var(--hijau-tua-primary);
+        margin-left: 20px; 
+        border: 2px solid var(--hijau-tua-primary); 
     }
-    .navbar-nav .nav-item .registerbutton:hover{
-        background-color: #347928;
-        color: #FFFBE6;
+    .navbar-nav .nav-item .registerbutton:hover {
+        background-color: var(--hijau-tua-primary); 
+        color: var(--krem-primary); 
+    }
+
+    .navbar-expand-lg .container-fluid{
+        background-color: var(--krem-primary); 
+        border-radius: 7px;
+        padding-bottom: 10px
     }
 </style>

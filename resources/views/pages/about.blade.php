@@ -11,12 +11,12 @@
 
 @section('styles')
 <style>
-    /* Page-specific styles */
+
 </style>
 @endsection
 
 @section('scripts')
 <script>
-    // Page-specific scripts
+
 </script>
 @endsection
