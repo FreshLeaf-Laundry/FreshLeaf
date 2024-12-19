@@ -56,4 +56,5 @@ start development server biar keliatan websitenya kek apa:
 php artisan serve
 ```
 
-### 
+# Catatan
+commit nya ke branch master aja, nanti kalo udah biar gw merge ke branch backup
