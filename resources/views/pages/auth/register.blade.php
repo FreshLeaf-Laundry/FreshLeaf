@@ -6,7 +6,7 @@
 <div class="container-fluid min-vh-100 p-0">
 
     <div class="row g-0 min-vh-100">
-        {{-- Login Form Section --}}
+        {{-- Register --}}
         <div class="col-md-5 bg-white align-items-center position-relative shadow-lg flex-row">
             <div class="sticky-button p-md-5">
                 <a href="{{ url('/') }}" class="btn btn-secondary rounded-circle" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
@@ -21,15 +21,32 @@
                     <p class="text-muted">Masukkan data diri anda untuk registrasi</p>
                 </div>
 
-                <form method="POST" action="{{ route('login') }}" class="loginform">
+                <form method="POST" action="{{ route('register.post') }}" class="registform">
                     @csrf
+
+                    {{-- Name Field --}}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input 
+                            type="text" 
+                            class="form-control @error('name') is-invalid @enderror" 
+                            id="name" 
+                            name="name"
+                            required
+                        >
+                        @error('name')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
 
                     {{-- Email --}}
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input 
                             type="text" 
-                            class="form-control @error('password') is-invalid @enderror" 
+                            class="form-control" 
                             id="email" 
                             name="email"
                             required
@@ -94,7 +111,7 @@
         background-color: var(--hijau-tua-primary);
         border: none
     }
-    .loginform .btn-primary{
+    .registform .btn-primary{
         background-color: var(--hijau-tua-primary); 
         color: white; 
         padding-left: 25px; 
@@ -102,12 +119,12 @@
         border: 2px solid var(--hijau-tua-primary); 
         transition: background-color 0.3s;
     }
-    .loginform .btn-primary:hover{
+    .registform .btn-primary:hover{
         color: var(--hijau-tua-primary); 
         background-color: var(--krem-primary); 
         border-color: var(--hijau-tua-primary);
     }
-    .loginform .btn-primary:disabled{
+    .registform .btn-primary:disabled{
         background-color: gray; 
         border-color: gray;
     }

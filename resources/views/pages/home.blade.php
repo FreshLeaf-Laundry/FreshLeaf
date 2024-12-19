@@ -15,7 +15,7 @@
                     <span class="fw-bold">FreshLeaf</span> <span>Laundry</span>
                 </div>
                 
-                <a href="{{ route('home') }}" class="btn btn-primary btn-lg">
+                <a href="{{ route('register') }}" class="btn btn-primary btn-lg">
                     Daftar Sekarang
                 </a>
 

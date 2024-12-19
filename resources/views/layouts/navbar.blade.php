@@ -14,16 +14,31 @@
                 </li>
             </ul>
             <ul class="navbar-nav"> <!-- ul untuk tombol login/register -->
-                <li class="nav-item">
-                    <a class="nav-link btn loginbutton px-3 py-1" href="{{ route('login') }}">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn registerbutton px-3 py-1" href="{{ route('register') }}">Register</a>
-                </li>
+                @guest
+                    <li class="nav-item">
+                        <a class="nav-link btn loginbutton px-3 py-1" href="{{ route('login') }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn registerbutton px-3 py-1" href="{{ route('register') }}">Register</a>
+                    </li>
+                @endguest
+
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link btn logoutbutton px-3 py-1" href="{{ route('logout') }}" 
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </li>
+                @endauth
             </ul>
         </div>
     </div>
 </nav>
+
 
 <style>
     .navbar-brand {

@@ -21,7 +21,7 @@
                     <p class="text-muted">Please log in to your account</p>
                 </div>
 
-                <form method="POST" action="{{ route('login') }}" class="loginform">
+                <form method="POST" action="{{ route('login.post') }}" class="loginform">
                     @csrf
 
                     {{-- Email --}}
@@ -84,6 +84,17 @@
     </div>
 </div>
 @endsection
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <style>
     .col-md-7{
         background: url("{{ asset('images/loginbg.jpg') }}") center/cover no-repeat;
