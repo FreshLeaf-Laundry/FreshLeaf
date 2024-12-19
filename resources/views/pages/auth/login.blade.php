@@ -7,15 +7,15 @@
 
     <div class="row g-0 min-vh-100">
         {{-- Login Form Section --}}
-        <div class="col-md-5 bg-white align-items-center position-relative shadow-lg flex-row">
-            <div class="sticky-button p-md-5">
+        <div class="col-md-5 bg-white align-items-center position-relative shadow-lg flex-row slide-in-left">
+            <div class="sticky-button p-md-5 fade-in">
                 <a href="{{ url('/') }}" class="btn btn-secondary rounded-circle" style="width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
                         <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
                     </svg>
                 </a>
             </div>
-            <div class="w-100 p-4 p-md-5">
+            <div class="w-100 p-4 p-md-5 fade-in">
                 <div class="mb-4">
                     <h2 class="fw-bold mb-2">Welcome Back</h2>
                     <p class="text-muted">Please log in to your account</p>
@@ -78,7 +78,7 @@
         </div>
 
         {{-- Background Image Section --}}
-        <div class="col-md-7 d-none d-md-block" style="
+        <div class="col-md-7 d-none d-md-block fade-in" style="
             min-height: 100vh;
         "></div>
     </div>

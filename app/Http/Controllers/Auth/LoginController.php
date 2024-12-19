@@ -5,12 +5,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class LoginController extends Controller
 {
     // Menampilkan form login
     public function showLoginForm()
     {
-        return view('pages.auth.login'); // Ganti dengan path view yang sesuai
+        return view('pages.auth.login'); 
     }
 
     // Menangani proses login
@@ -22,10 +23,16 @@ class LoginController extends Controller
             'password' => 'required|string',
         ]);
 
+
+
+        // cek remember me
+        $remember = $request->boolean('remember');
         // Cek kredensial
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials, $remember)) {
             // Redirect ke halaman yang diinginkan setelah login berhasil
-            return redirect()->intended('/'); // Ganti dengan route yang sesuai
+            return redirect()->intended('/'); 
         }
 
         // Jika login gagal, kembali ke form dengan pesan kesalahan

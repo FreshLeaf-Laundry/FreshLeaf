@@ -169,22 +169,6 @@
 
 @push('scripts')
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Intersection Observer untuk animasi fade dan slide
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, {
-        threshold: 0.1
-    });
 
-    // Amati semua elemen dengan kelas animasi
-    document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(element => {
-        observer.observe(element);
-    });
-});
 </script>
 @endpush

@@ -15,6 +15,63 @@
      {{-- Custom CSS  --}}
     @yield('styles')
     @stack('styles')
+
+    <style>
+        body{
+            font-family: 'Poppins', sans-serif;
+        }
+        :root{
+            --hijau-tua-primary: #347928;
+            --hijau-muda-secondary: #C0EBA6;
+            --krem-primary: #FFFBE6;
+            --kuning-secondary: #FCCD2A;
+        }
+    
+                /* style untuk animasi */
+                /* animasi */
+            /* Animasi Fade In */
+            .fade-in {
+                opacity: 0;
+                transition: opacity 0.5s ease-in-out;
+            }
+    
+            .fade-in.visible {
+                opacity: 1;
+            }
+    
+            /* Animasi Slide In */
+            .slide-in-left {
+                opacity: 0;
+                transform: translateX(-150px);
+                transition: all 0.5s ease-out;
+            }
+    
+            .slide-in-left.visible {
+                opacity: 1;
+                transform: translateX(0);
+            }
+    
+            .slide-in-right {
+                opacity: 0;
+                transform: translateX(150px);
+                transition: all 0.5s ease-out;
+            }
+    
+            .slide-in-right.visible {
+                opacity: 1;
+                transform: translateX(0);
+            }
+    
+            /* Hover Effect untuk Card */
+            .card {
+                transition: transform 0.3s ease;
+            }
+    
+            .card:hover {
+                transform: translateY(-5px);
+            }
+    
+    </style>
 </head>
 <body>
 
@@ -33,16 +90,25 @@
     
      {{-- Custom Scripts  --}}
     @yield('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        // Intersection Observer untuk animasi fade dan slide
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        // Amati semua elemen dengan kelas animasi
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(element => {
+            observer.observe(element);
+        });
+        });
+    </script>
 </body>
 </html>
-<style>
-    body{
-        font-family: 'Poppins', sans-serif;
-    }
-    :root{
-        --hijau-tua-primary: #347928;
-        --hijau-muda-secondary: #C0EBA6;
-        --krem-primary: #FFFBE6;
-        --kuning-secondary: #FCCD2A;
-    }
-</style>
+
