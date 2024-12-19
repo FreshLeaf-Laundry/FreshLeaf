@@ -4,10 +4,10 @@
 
 @section('content')
 {{-- Hero Section --}}
-<div class="container-fluid w-100 py-5 homecontainer">
+<div class="container-fluid w-100 py-5 homecontainer fade-in">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-6">
+            <div class="col-lg-6 slide-in-left">
                 <p class="lead mb-4">
                     Choose Green, Choose Fresh
                 </p>
@@ -18,7 +18,6 @@
                 <a href="{{ route('register') }}" class="btn btn-primary btn-lg">
                     Daftar Sekarang
                 </a>
-
             </div>
             <div class="col-lg-6">
                 <img src="{{ asset('images/hero-laundry.jpg') }}" 
@@ -29,18 +28,16 @@
     </div>
 </div>
 
-
-
 {{-- About Section --}}
-<div class="container-fluid py-5 yourbestcontainer">
+<div class="container-fluid py-5 yourbestcontainer fade-in">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-6">
+            <div class="col-lg-6 slide-in-left">
                 <img src="{{ asset('images/about-laundry.jpg') }}" 
                      alt="About Our Laundry" 
                      class="img-fluid rounded-4 shadow-lg">
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 slide-in-right">
                 <h2 class="display-6 mb-4">Your Best Partner in Laundry Service</h2>
                 <p class="lead mb-4">
                     Di FreshLeaf Laundry, kami memahami bahwa pakaian Anda adalah investasi. 
@@ -53,19 +50,17 @@
                     menggunakan deterjen ramah lingkungan yang aman untuk Anda dan keluarga, 
                     serta efektif dalam menghilangkan noda. 
                 </p>
-
             </div>
-
         </div>
     </div>
 </div>
 
 {{-- Customer Testimonials --}}
-<div class="container py-5">
+<div class="container py-5 fade-in">
     <div class="text-center mb-5">
         <h2 class="display-6">Mengapa Kami Yang Terbaik?</h2>
-
     </div>
+    {{-- tes --}}
     
     <div class="row g-4">
         {{-- Testimonial 1 --}}
@@ -90,7 +85,7 @@
                 </div>
             </div>
         </div>
-        {{-- testi 2 --}}
+        {{-- Testimonial 2 --}}
         <div class="col-md-4">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body">
@@ -112,7 +107,7 @@
                 </div>
             </div>
         </div>
-        {{-- testi 3 --}}
+        {{-- Testimonial 3 --}}
         <div class="col-md-4">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body">
@@ -132,10 +127,9 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
+
 @endsection
 
 
@@ -168,4 +162,29 @@
         color: #2B8761;
         background-color:var(--krem-primary);
     }
+
+
 </style>
+
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Intersection Observer untuk animasi fade dan slide
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    // Amati semua elemen dengan kelas animasi
+    document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(element => {
+        observer.observe(element);
+    });
+});
+</script>
+@endpush
