@@ -12,6 +12,14 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">About</a>
                 </li>
+                @auth
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('voucher') ? 'active' : '' }}" href="{{ route('voucher') }}">Voucher</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('feedback') ? 'active' : '' }}" href="{{ route('feedback') }}">Feedback</a>
+                </li>
+                @endauth
             </ul>
             <ul class="navbar-nav"> <!-- ul untuk tombol login/register -->
                 @guest

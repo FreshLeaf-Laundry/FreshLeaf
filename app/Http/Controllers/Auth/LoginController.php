@@ -18,9 +18,9 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         // Validasi input
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
+        $credentials =$request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
         ]);
 
 
@@ -28,10 +28,9 @@ class LoginController extends Controller
         // cek remember me
         $remember = $request->boolean('remember');
         // Cek kredensial
-        $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials, $remember)) {
-            // Redirect ke halaman yang diinginkan setelah login berhasil
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
             return redirect()->intended('/'); 
         }
 

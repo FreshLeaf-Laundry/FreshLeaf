@@ -15,7 +15,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admin123'), 
-            'role' => 'admin',
+            'is_admin' => '1',
         ]);
 
         // Membuat akun dengan role user
@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'User',
             'email' => 'user@gmail.com',
             'password' => Hash::make('user123'), 
-            'role' => 'user',
+            'is_admin' => '0',
         ]);
     }
 }

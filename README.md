@@ -49,6 +49,12 @@ kalau database udah ada, jalanin migration biar ada tabelnya:
 php artisan migrate
 ```
 
+### 6.5 Seeding Database
+buat ngisi database pake data template yang udah dibuat (yg login udh gw buat)
+```
+php artisan db:seed
+```
+
 ### 7. Jalankan Aplikasi
 
 start development server biar keliatan websitenya kek apa:

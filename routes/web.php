@@ -17,6 +17,14 @@ Route::get('/login', function () {
     return view('pages.auth.login');
 })->name('login');
 
+Route::get('/voucher', function () {
+    return view('pages.voucher');
+})->name('voucher');
+
+Route::get('/feedback', function () {
+    return view('pages.feedback');
+})->name('feedback');
+
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
