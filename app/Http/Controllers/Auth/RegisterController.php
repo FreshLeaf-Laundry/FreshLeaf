@@ -39,7 +39,7 @@ class RegisterController extends Controller
         ]);
 
         // habis register, langsung login
-        Auth::login($user);
+        // Auth::login(User::where('email', $request->email)->first());
 
         // Redirect atau memberikan respon setelah registrasi berhasil
         return redirect()->route('login')->with('success', 'Registration successful! You can now log in.');
