@@ -34,7 +34,7 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password), // Meng-hash password
-            'role' => 'user', // Mengatur role menjadi 'user'
+            'is_admin' => '0', // Mengatur role menjadi 'user'
         ]);
 
         // Redirect atau memberikan respon setelah registrasi berhasil
