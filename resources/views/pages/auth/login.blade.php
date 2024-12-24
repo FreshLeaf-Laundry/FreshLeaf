@@ -14,12 +14,30 @@
                         <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
                     </svg>
                 </a>
+
+                
             </div>
             <div class="w-100 p-4 p-md-5 fade-in">
+
                 <div class="mb-4">
                     <h2 class="fw-bold mb-2">Welcome Back</h2>
                     <p class="text-muted">Please log in to your account</p>
                 </div>
+
+                @if ($errors->any() || session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+                        @if(session('error'))
+                            {{ session('error') }}
+                        @else
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
 
                 <form method="POST" action="{{ route('login.post') }}" class="loginform">
                     @csrf
@@ -33,6 +51,8 @@
                             id="email" 
                             name="email"
                             required
+                            autofocus
+                            placeholder="Emailanda@gmail.com"
                         >
                     </div>
 
@@ -45,6 +65,7 @@
                             id="password" 
                             name="password"
                             required
+                            placeholder="PasswordAnda"
                         >
                         @error('password')
                             <div class="invalid-feedback">
@@ -84,16 +105,6 @@
     </div>
 </div>
 @endsection
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 
 <style>
     .col-md-7{
