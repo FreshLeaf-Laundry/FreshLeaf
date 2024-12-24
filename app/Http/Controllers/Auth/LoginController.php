@@ -15,7 +15,7 @@ class LoginController extends Controller
     }
 
     // Menangani proses login
-    public function login(Request $request)
+    public function authenticate(Request $request)
     {
         // Validasi input
         $credentials =$request->validate([
@@ -31,7 +31,13 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/'); 
+            
+            // Redirect to admin dashboard if user is admin
+            if (Auth::user()->is_admin == 1) {
+                return redirect()->route('admin.dashboard');
+            }
+
+            return redirect()->intended('/');
         }
 
         // Jika login gagal, kembali ke form dengan pesan kesalahan

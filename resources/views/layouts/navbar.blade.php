@@ -20,6 +20,12 @@
                     <a class="nav-link {{ request()->routeIs('feedback') ? 'active' : '' }}" href="{{ route('feedback') }}">Feedback</a>
                 </li>
                 @endauth
+                {{-- Jika sudah login dan role admin, tampilkan tombol admin dashboard --}}
+                @if(auth()->check() && auth()->user()->is_admin == 1)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
+                    </li>
+                @endif
             </ul>
             <ul class="navbar-nav"> <!-- ul untuk tombol login/register -->
                 @guest

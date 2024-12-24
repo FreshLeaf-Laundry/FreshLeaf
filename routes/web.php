@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Admindash;
+use App\Http\Controllers\AdmindashController;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -26,14 +26,19 @@ Route::get('/feedback', function () {
     return view('pages.feedback');
 })->name('feedback');
 
+// Route Register
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+// Route Login cuma bisa diakses jika belum login
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login.post')->middleware('guest');
 
-Route::post('/login', [LoginController::class, 'login'])->name('login.post');
-
+// Route Logout
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/admin/dashboard', [Admindash::class, 'index'])->name('admin.dashboard')->middleware('auth');
+// Route Khusus Admin (hanya bisa diakses jika sudah login dan role admin)
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdmindashController::class, 'index'])->name('admin.dashboard');
+    // Add other admin routes here
+});

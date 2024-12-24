@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class Admindash extends Controller
+class AdmindashController extends Controller
 {
     public function index()
     {
