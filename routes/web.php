@@ -40,5 +40,7 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Route Khusus Admin (hanya bisa diakses jika sudah login dan role admin)
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdmindashController::class, 'index'])->name('admin.dashboard');
+    Route::post('/admin/users', [AdmindashController::class, 'store'])->name('admin.users.store');
+    Route::delete('/admin/users/{user}', [AdmindashController::class, 'destroy'])->name('admin.users.delete');
     // Add other admin routes here
 });

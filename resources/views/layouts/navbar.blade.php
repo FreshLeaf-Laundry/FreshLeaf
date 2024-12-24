@@ -20,12 +20,12 @@
                     <a class="nav-link {{ request()->routeIs('feedback') ? 'active' : '' }}" href="{{ route('feedback') }}">Feedback</a>
                 </li>
                 @endauth
-                {{-- Jika sudah login dan role admin, tampilkan tombol admin dashboard --}}
-                @if(auth()->check() && auth()->user()->is_admin == 1)
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
-                    </li>
-                @endif
+                @auth
+                {{-- if it works, dont mess with it -gandhi probably --}}
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                @endauth
             </ul>
             <ul class="navbar-nav"> <!-- ul untuk tombol login/register -->
                 @guest
@@ -38,15 +38,30 @@
                 @endguest
 
                 @auth
-                    <li class="nav-item">
-                        <a class="nav-link btn logoutbutton px-3 py-1" href="{{ route('logout') }}" 
-                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            Logout
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle btn logoutbutton px-3 py-1" href="#" role="button" data-bs-toggle="dropdown">
+                            {{ Auth::user()->name }}
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            @if(Auth::user()->is_admin == 1)
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
+                                        <i class="bi bi-speedometer2"></i> Admin Dashboard
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                            @endif
+                            <li>
+                                <a class="dropdown-item" href="{{ route('logout') }}" 
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="bi bi-box-arrow-right"></i> Logout
+                                </a>
+                            </li>
+                        </ul>
                     </li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 @endauth
             </ul>
         </div>
