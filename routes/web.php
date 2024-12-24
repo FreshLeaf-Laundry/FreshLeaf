@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\FeedbackController;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -21,9 +22,9 @@ Route::get('/voucher', function () {
     return view('pages.voucher');
 })->name('voucher');
 
-Route::get('/feedback', function () {
-    return view('pages.feedback');
-})->name('feedback');
+Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
+
+Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 
