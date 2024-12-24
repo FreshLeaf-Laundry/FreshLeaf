@@ -3,34 +3,36 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\VoucherController;
 
+// Halaman Utama
 Route::get('/', function () {
     return view('pages.home');
 })->name('home');
 
+// Halaman About
 Route::get('/about', function () {
     return view('pages.about');
 })->name('about');
 
-Route::get('/login', function () {
-    return view('pages.auth.login');
-})->name('login');
+// Halaman Login
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 
-Route::get('/voucher', function () {
-    return view('pages.voucher');
-})->name('voucher');
+// Halaman Register
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 
+// Halaman Feedback
 Route::get('/feedback', function () {
     return view('pages.feedback');
 })->name('feedback');
 
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+// Halaman Voucher (menggunakan VoucherController)
+Route::get('/voucher', [VoucherController::class, 'index'])->name('voucher');
 
-Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
+// Resource Route untuk Voucher (CRUD)
+Route::resource('vouchers', VoucherController::class);
 
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-
-Route::post('/login', [LoginController::class, 'login'])->name('login.post');
-
+// Logout Route
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
