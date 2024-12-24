@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admindash;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -35,7 +36,4 @@ Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/dashboard', function () {
-    return view('pages.admin.dashboard');
-})->name('admin.dashboard');
-// ->middleware(['auth', 'admin']);
+Route::get('/admin/dashboard', [Admindash::class, 'index'])->name('admin.dashboard')->middleware('auth');

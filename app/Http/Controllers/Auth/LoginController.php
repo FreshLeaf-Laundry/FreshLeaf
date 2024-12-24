@@ -19,7 +19,7 @@ class LoginController extends Controller
     {
         // Validasi input
         $credentials =$request->validate([
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email:dns'],
             'password' => ['required'],
         ]);
 
@@ -36,7 +36,7 @@ class LoginController extends Controller
 
         // Jika login gagal, kembali ke form dengan pesan kesalahan
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'Email atau Password Tidak Sesuai',
         ]);
     }
 
