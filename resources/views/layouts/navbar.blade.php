@@ -58,8 +58,15 @@
                                         <i class="bi bi-chat-dots"></i> Feedback
                                     </a>
                                 </li>
-                                <li><hr class="dropdown-divider"></li>
                             @endif
+                            @auth
+                                @unless(auth()->user()->is_admin)
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ request()->routeIs('profile.edit') ? 'active' : '' }}" href="{{ route('profile.edit') }}">Profile</a>
+                                    </li>
+                                @endunless
+                            @endauth
+                            <li><hr class="dropdown-divider"></li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('logout') }}" 
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

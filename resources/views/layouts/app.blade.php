@@ -96,6 +96,8 @@
         }
     </style>
 
+
+
 </head>
 <body>
     {{-- Navbar   --}}
@@ -109,12 +111,14 @@
     {{-- Footer   --}}
     @include('layouts.footer')
     
-    {{-- Bootstrap 5 JS Bundle with Popper  --}}
+    {{-- Core Scripts (Always loaded) --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
+    {{-- sweetalert2 --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     {{-- Custom Scripts  --}}
-    @stack('scripts')
-    {{-- @yield('scripts') --}}
+    {{-- @stack('scripts') --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
         // Intersection Observer untuk animasi fade dan slide
@@ -134,5 +138,7 @@
         });
         });
     </script>
+    @stack('scripts')
+
 </body>
 </html>

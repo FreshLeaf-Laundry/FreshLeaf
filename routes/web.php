@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\AdmindashController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -31,10 +32,17 @@ Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.s
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 
+// Route Profile
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
+
 // Route Khusus Admin
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdmindashController::class, 'index'])->name('admin.dashboard');
     Route::post('/admin/users', [AdmindashController::class, 'store'])->name('admin.users.store');
-    Route::delete('/admin/users/{user}', [AdmindashController::class, 'destroy'])->name('admin.users.delete');
+    Route::delete('/admin/users/{user}', [AdmindashController::class, 'deleteUser'])->name('admin.users.delete');
 });
+
 
