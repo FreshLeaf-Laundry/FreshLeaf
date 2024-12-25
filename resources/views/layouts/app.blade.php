@@ -31,6 +31,7 @@
             --hijau-muda-secondary: #C0EBA6;
             --krem-primary: #FFFBE6;
             --kuning-secondary: #FCCD2A;
+            --hijau-tua-secondary: #2B8761;
         }
 
         /* style untuk animasi */
@@ -76,7 +77,23 @@
         .card:hover {
             transform: translateY(-5px);
         }
-
+        .btn.btn-light{
+            color: var(--hijau-tua-primary);
+            margin-left: 20px; 
+            border: 2px solid var(--hijau-tua-primary); 
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .btn.btn-lg.secondarybutton{
+            color: var(--hijau-tua-primary);
+            margin-left: 20px; 
+            background-color:var(--krem-primary); 
+        }
+        .btn.btn-lg.secondarybutton:hover{
+            color: var(--krem-primary);
+            background-color: var(--hijau-tua-secondary);
+        }
     </style>
 
 </head>

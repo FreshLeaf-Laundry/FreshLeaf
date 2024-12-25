@@ -10,15 +10,19 @@
                     <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">About</a>
+                    <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">Tentang Kami</a>
                 </li>
                 @auth
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('voucher') ? 'active' : '' }}" href="{{ route('voucher') }}">Voucher</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('feedback') ? 'active' : '' }}" href="{{ route('feedback') }}">Feedback</a>
-                </li>
+                @auth
+                    @if(Auth::user()->is_admin != 1)
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('feedback') ? 'active' : '' }}" href="{{ route('feedback') }}">Feedback</a>
+                        </li>
+                    @endif
+                @endauth
                 @endauth
                 @auth
                 {{-- if it works, dont mess with it -gandhi probably --}}
@@ -47,6 +51,11 @@
                                 <li>
                                     <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
                                         <i class="bi bi-speedometer2"></i> Admin Dashboard
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('feedback') }}">
+                                        <i class="bi bi-chat-dots"></i> Feedback
                                     </a>
                                 </li>
                                 <li><hr class="dropdown-divider"></li>

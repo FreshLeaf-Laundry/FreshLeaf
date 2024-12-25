@@ -19,8 +19,11 @@
                     <a href="{{ route('register') }}" class="btn btn-primary btn-lg">
                         Daftar Sekarang
                     </a>
+                    <a href="{{ route('about') }}" class="btn btn-lg secondarybutton">
+                        Pelajari Lebih Lanjut
+                    </a>
                 @endguest
-            </div>
+                </div>
             <div class="col-lg-6">
                 <img src="{{ asset('images/hero-laundry.jpg') }}" 
                      alt="Laundry Services" 
