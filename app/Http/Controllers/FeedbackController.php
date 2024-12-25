@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Feedback;
+use Illuminate\Support\Facades\Auth;
 
 class FeedbackController extends Controller
 {
@@ -14,7 +15,7 @@ class FeedbackController extends Controller
         ]);
 
         Feedback::create([
-            'user_id' => auth()->id(),
+            'user_id' => Auth::id(),
             'message' => $request->message,
         ]);
 
