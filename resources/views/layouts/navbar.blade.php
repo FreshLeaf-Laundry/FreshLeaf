@@ -58,6 +58,11 @@
                                         <i class="bi bi-chat-dots"></i> Feedback
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('admin.faq') }}">
+                                        <i class="bi bi-question-circle"></i> FAQ
+                                    </a>
+                                </li>
                             @endif
                             @auth
                                 @unless(auth()->user()->is_admin)

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\UsermgtController; 
 use App\Http\Controllers\ProfileController;
@@ -43,7 +44,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/users', [UsermgtController::class, 'index'])->name('admin.usermgt');
     Route::post('/admin/users', [UsermgtController::class, 'store'])->name('admin.users.store');
     Route::delete('/admin/users/{user}', [UsermgtController::class, 'deleteUser'])->name('admin.users.delete');
-    
+    Route::get('/admin/faq', [FaqController::class, 'index'])->name('admin.faq');
+    Route::post('/admin/faq', [FaqController::class, 'store'])->name('admin.faq.store');
+    Route::post('faq/reorder', [FaqController::class, 'reorder'])->name('admin.faq.reorder');
+    Route::delete('/admin/faq/{faq}', [FaqController::class, 'destroy'])->name('admin.faq.destroy');
 });
+
+
 
 

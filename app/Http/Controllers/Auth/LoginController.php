@@ -32,9 +32,9 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             
-            // Redirect to admin dashboard if user is admin
+            // Redirect ke admin usermgt kalo user admin
             if (Auth::user()->is_admin == 1) {
-                return redirect()->route('admin.dashboard');
+                return redirect()->route('admin.usermgt');
             }
 
             return redirect()->intended('/');
