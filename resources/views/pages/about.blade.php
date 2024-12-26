@@ -48,6 +48,28 @@
             <a href="https://www.youtube.com/watch?v=Ec4YbVP9R-A" class="btn btn-light primarybutton" target="_self">Hubungi Kami</a>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-12 my-5 fade-in">
+            <h2 class="mb-4">Frequently Asked Questions</h2>
+            <div class="accordion" id="faqAccordion">
+                @foreach($faqs as $faq)
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading{{ $faq->id }}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $faq->id }}">
+                                {{ $faq->question }}
+                            </button>
+                        </h2>
+                        <div id="collapse{{ $faq->id }}" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                {{ $faq->answer }}
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 
@@ -70,6 +92,10 @@
         background-color: var(--krem-primary);
         color: #2B8761;
     } */
+
+    .accordion-button:not(.collapsed) {
+        background-color: #e7f1ff;
+    }
 </style>
 @endsection
 

@@ -3,14 +3,14 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\User; // Pastikan untuk mengimpor model User
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class UsersTableSeeder extends Seeder
 {
     public function run()
     {
-        // Membuat akun dengan role admin
+        // buat akun dengan role admin
         User::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
@@ -18,12 +18,14 @@ class UsersTableSeeder extends Seeder
             'is_admin' => '1',
         ]);
 
-        // Membuat akun dengan role user
-        User::create([
-            'name' => 'User',
-            'email' => 'user@gmail.com',
-            'password' => Hash::make('user123'), 
-            'is_admin' => '0',
-        ]);
+        // buat 10 akun user
+        for ($i = 1; $i <= 10; $i++) {
+            User::create([
+                'name' => "User {$i}",
+                'email' => "user{$i}@gmail.com",
+                'password' => Hash::make('user123'),
+                'is_admin' => '0',
+            ]);
+        }
     }
 }

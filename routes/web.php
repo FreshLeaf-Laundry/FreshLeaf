@@ -14,7 +14,8 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/about', function () {
-    return view('pages.about');
+    $faqs = \App\Models\FAQ::orderBy('order')->get();
+    return view('pages.about', compact('faqs'));
 })->name('about');
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');

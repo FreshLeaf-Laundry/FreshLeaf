@@ -55,12 +55,12 @@
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="{{ route('feedback') }}">
-                                        <i class="bi bi-chat-dots"></i> Feedback
+                                        <i class="bi bi-chat-dots"></i> Feedbacks
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="{{ route('admin.faq') }}">
-                                        <i class="bi bi-question-circle"></i> FAQ
+                                        <i class="bi bi-question-circle"></i> FAQ Edit
                                     </a>
                                 </li>
                             @endif
