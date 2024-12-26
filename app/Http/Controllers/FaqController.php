@@ -24,8 +24,8 @@ class FaqController extends Controller
         FAQ::create($validated);
 
         // success message
-        return redirect()->route('admin.faq.index')
-            ->with('success', 'FAQ created successfully');
+        return redirect()->route('admin.faq')
+            ->with('success', 'FAQ berhasil dibuat');
     }
 
     public function reorder(Request $request)
@@ -45,11 +45,28 @@ class FaqController extends Controller
             $faq = FAQ::findOrFail($id);
             $faq->delete();
 
-            return redirect()->route('admin.faq.index')
-                ->with('success', 'FAQ deleted successfully');
+            return redirect()->route('admin.faq')
+                ->with('success', 'FAQ berhasil dihapus');
         } catch (\Exception $e) {
-            return redirect()->route('admin.faq.index')
-                ->with('error', 'Error deleting FAQ');
+            return redirect()->route('admin.faq')
+                ->with('error', 'Terjadi kesalahan');
         }
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validate
+        $validated = $request->validate([
+            'question' => 'required|string|max:255',
+            'answer' => 'required|string'
+        ]);
+
+        // Find and update FAQ
+        $faq = FAQ::findOrFail($id);
+        $faq->update($validated);
+
+        // Redirect back to the FAQ management page
+        return redirect()->route('admin.faq')
+            ->with('success', 'FAQ berhasil diperbarui');
     }
 }

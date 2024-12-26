@@ -34,18 +34,10 @@
                         <td>{{ $faq->question }}</td>
                         <td>{{ $faq->answer }}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary edit-faq" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#editFaqModal"
-                                    data-id="{{ $faq->id }}"
-                                    data-question="{{ $faq->question }}"
-                                    data-answer="{{ $faq->answer }}">
-                                Edit
-                            </button>
-                            <form action="{{ route('admin.faq.destroy', $faq->id) }}" method="POST" class="d-inline">
+                            <form action="{{ route('admin.faq.destroy', $faq->id) }}" method="POST" class="d-inline delete-form">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this FAQ?')">
+                                <button type="submit" class="btn btn-sm btn-danger">
                                     Delete
                                 </button>
                             </form>
@@ -87,76 +79,50 @@
     </div>
 </div>
 
-<!-- Edit FAQ Modal -->
-<div class="modal fade" id="editFaqModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit FAQ</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <form id="editFaqForm" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="modal-body">
-                    <input type="hidden" id="edit_faq_id" name="faq_id">
-                    <div class="mb-3">
-                        <label for="edit_question" class="form-label">Question</label>
-                        <input type="text" class="form-control" id="edit_question" name="question" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="edit_answer" class="form-label">Answer</label>
-                        <textarea class="form-control" id="edit_answer" name="answer" rows="3" required></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Update FAQ</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 @endsection
 
 @push('scripts')
 <script>
-    $(document).ready(function() {
-        // Initialize DataTable
-        $('#faqTable').DataTable();
-
-        // Edit FAQ
-        $('.edit-faq').click(function() {
-            let id = $(this).data('id');
-            let question = $(this).data('question');
-            let answer = $(this).data('answer');
-            
-            $('#edit_faq_id').val(id);
-            $('#edit_question').val(question);
-            $('#edit_answer').val(answer);
-            $('#editFaqForm').attr('action', `/admin/faq/${id}`);
+    // Handle flash messages immediately
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: "{{ session('success') }}",
+            timer: 3000,
+            showConfirmButton: false
         });
+    @endif
 
-        // Delete FAQ
-        $('.delete-faq').click(function() {
-            let id = $(this).data('id');
-            
-            if (confirm('Are you sure you want to delete this FAQ?')) {
-                $.ajax({
-                    url: `/admin/faq/${id}`,
-                    type: 'DELETE',
-                    data: {
-                        "_token": "{{ csrf_token() }}"
-                    },
-                    success: function(response) {
-                        location.reload();
-                    },
-                    error: function(error) {
-                        alert('Error deleting FAQ');
+    @if(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: "{{ session('error') }}",
+        });
+    @endif
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Delete confirmation
+        const deleteForms = document.querySelectorAll('.delete-form');
+        deleteForms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
                     }
                 });
-            }
+            });
         });
     });
 </script>

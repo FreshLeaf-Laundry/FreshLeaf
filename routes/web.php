@@ -46,6 +46,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/admin/users/{user}', [UsermgtController::class, 'deleteUser'])->name('admin.users.delete');
     Route::get('/admin/faq', [FaqController::class, 'index'])->name('admin.faq');
     Route::post('/admin/faq', [FaqController::class, 'store'])->name('admin.faq.store');
+    // Route::post('/admin/faq/update/{id}', [FaqController::class, 'update'])->name('admin.faq.update');
     Route::post('faq/reorder', [FaqController::class, 'reorder'])->name('admin.faq.reorder');
     Route::delete('/admin/faq/{faq}', [FaqController::class, 'destroy'])->name('admin.faq.destroy');
 });
