@@ -49,8 +49,8 @@
                         <ul class="dropdown-menu dropdown-menu-end">
                             @if(Auth::user()->is_admin == 1)
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
-                                        <i class="bi bi-speedometer2"></i> Admin Dashboard
+                                    <a class="dropdown-item" href="{{ route('admin.usermgt') }}">
+                                        <i class="bi bi-speedometer2"></i> Users Management
                                     </a>
                                 </li>
                                 <li>

@@ -6,6 +6,16 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-lg-8 mx-auto">
+            <div class="text-center mb-4">
+                <div class="avatar-wrapper">
+                    <div class="profile-avatar">
+                        <i class="bi bi-person-circle"></i>
+                    </div>
+                </div>
+                <h3 class="mt-3">{{ Auth::user()->name }}</h3>
+                <p class="text-muted">Member since {{ Auth::user()->created_at->format('F Y') }}</p>
+            </div>
+
             <div class="card shadow fade-in">
                 <div class="card-header bg-white">
                     <h4 class="mb-0">Profile Settings</h4>
@@ -108,6 +118,27 @@
     
     .card-body {
         padding: 2rem;
+    }
+
+    .avatar-wrapper {
+        display: inline-block;
+        margin-bottom: 1rem;
+    }
+
+    .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background-color: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid var(--krem-primary);
+    }
+
+    .profile-avatar i {
+        font-size: 60px;
+        color: #6c757d;
     }
 </style>
 @endsection

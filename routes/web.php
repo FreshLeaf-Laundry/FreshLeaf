@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FeedbackController;
-use App\Http\Controllers\AdmindashController;
+use App\Http\Controllers\UsermgtController; 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 
@@ -40,9 +40,10 @@ Route::middleware('auth')->group(function () {
 
 // Route Khusus Admin
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin/dashboard', [AdmindashController::class, 'index'])->name('admin.dashboard');
-    Route::post('/admin/users', [AdmindashController::class, 'store'])->name('admin.users.store');
-    Route::delete('/admin/users/{user}', [AdmindashController::class, 'deleteUser'])->name('admin.users.delete');
+    Route::get('/admin/users', [UsermgtController::class, 'index'])->name('admin.usermgt');
+    Route::post('/admin/users', [UsermgtController::class, 'store'])->name('admin.users.store');
+    Route::delete('/admin/users/{user}', [UsermgtController::class, 'deleteUser'])->name('admin.users.delete');
+    
 });
 
 

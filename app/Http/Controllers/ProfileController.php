@@ -23,7 +23,7 @@ class ProfileController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
             'current_password' => ['required_with:new_password', 'current_password'],
-            'new_password' => ['nullable', 'min:8', 'confirmed'],
+            'new_password' => ['nullable', 'min:6', 'confirmed'],
         ]);
 
         User::where('id', Auth::id())->update([
@@ -37,6 +37,6 @@ class ProfileController extends Controller
             ]);
         }
 
-        return back()->with('success', 'Profile updated successfully!');
+        return back()->with('success', 'Profil berhasil diperbarui!');
     }
 }
