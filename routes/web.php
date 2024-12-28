@@ -5,8 +5,9 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FeedbackController;
-use App\Http\Controllers\UsermgtController; 
+use App\Http\Controllers\UsermgtController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -38,6 +39,8 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/orders', [OrderController::class, 'show'])->name('orders.create');
+    Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
 });
 
 // Route Khusus Admin
