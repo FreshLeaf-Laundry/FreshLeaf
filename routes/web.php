@@ -8,6 +8,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Admin\UsermgtController; 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\VoucherEditController;
+use App\Http\Controllers\VoucherController;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -24,9 +25,7 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('login.pos
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/voucher', function () {
-    return view('pages.voucher');
-})->name('voucher');
+Route::get('/voucher', [VoucherController::class, 'index'])->name('voucher');
 
 Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
 Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
@@ -35,10 +34,15 @@ Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.s
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 
-// Route Profile
+// Route khusus user login
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    // Voucher Routes
+    Route::get('/voucher', [VoucherController::class, 'index'])->name('voucher');
+    Route::post('/voucher/redeem', [VoucherController::class, 'redeem'])->name('voucher.redeem');
+    Route::get('/voucher/check/{code}', [VoucherController::class, 'check'])->name('voucher.check');
+
 });
 
 // Route Khusus Admin
@@ -57,6 +61,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('/admin/vouchers/{voucher}', [VoucherEditController::class, 'update'])->name('admin.vouchers.update');
     Route::delete('/admin/vouchers/{voucher}', [VoucherEditController::class, 'destroy'])->name('admin.vouchers.delete');
 });
+
+
 
 
 
