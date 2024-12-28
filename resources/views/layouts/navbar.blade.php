@@ -63,6 +63,11 @@
                                         <i class="bi bi-question-circle"></i> FAQ Edit
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('admin.vouchers') }}">
+                                        <i class="bi bi-ticket-perforated"></i> Kelola Voucher
+                                    </a>
+                                </li>
                             @endif
                             @auth
                                 @unless(auth()->user()->is_admin)
