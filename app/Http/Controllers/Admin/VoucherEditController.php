@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
 
-class VoucherController extends Controller
+class VoucherEditController extends Controller
 {
     public function index()
     {
         $vouchers = Voucher::latest()->get();
-        return view('admin.vouchers.index', compact('vouchers'));
+        return view('pages.admin.vouchers.index', compact('vouchers'));
     }
 
     public function store(Request $request)

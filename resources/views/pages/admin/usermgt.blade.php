@@ -8,7 +8,7 @@
         <!-- Main Content -->
         <main class="px-md-4 fade-in">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Dashboard</h1>
+                <h1 class="h2">Accounts Management</h1>
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
                         <i class="bi bi-person-plus"></i> Tambah Akun Baru
@@ -24,11 +24,11 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        Jumlah Akun</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $totalUsers }}</div>
+                                        Akun Admin</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $adminUsers }}</div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="bi bi-people fs-2 text-gray-300"></i>
+                                    <i class="bi bi-person-gear fs-2 text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $activeUsers }}</div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="bi bi-person-check fs-2 text-gray-300"></i>
+                                    <i class="bi bi-people fs-2 text-gray-300"></i>
                                 </div>
                             </div>
                         </div>
@@ -238,6 +238,16 @@
     .user-badge {
         background-color: #ff95a0;
         color: rgb(255, 61, 61);
+    }
+    .btn.btn-primary {
+        background-color: var(--hijau-tua-primary);
+        color: var(--krem-primary);
+        border: none;
+    }
+    .btn.btn-primary:hover {
+        background-color: var(--krem-primary);
+        color: var(--hijau-tua-primary);
+        border: 1px solid var(--hijau-tua-primary);
     }
 </style>
 @endsection

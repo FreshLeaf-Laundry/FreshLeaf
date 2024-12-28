@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 
 class UsermgtController extends Controller
 {
@@ -14,6 +15,7 @@ class UsermgtController extends Controller
     {
         $users = User::all();
         $totalUsers = User::count();
+        $adminUsers = User::where('is_admin', 1)->count();
         $activeUsers = User::where('is_admin', 0)->count();
         $recentUsers = User::latest()->take(5)->get();
 
@@ -21,7 +23,8 @@ class UsermgtController extends Controller
             'users',
             'totalUsers',
             'activeUsers',
-            'recentUsers'
+            'recentUsers',
+            'adminUsers'
         ));
     }
 

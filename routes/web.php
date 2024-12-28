@@ -5,9 +5,9 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FeedbackController;
-use App\Http\Controllers\UsermgtController; 
+use App\Http\Controllers\Admin\UsermgtController; 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\VoucherController;
+use App\Http\Controllers\Admin\VoucherEditController;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -51,11 +51,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Route::post('/admin/faq/update/{id}', [FaqController::class, 'update'])->name('admin.faq.update');
     Route::post('faq/reorder', [FaqController::class, 'reorder'])->name('admin.faq.reorder');
     Route::delete('/admin/faq/{faq}', [FaqController::class, 'destroy'])->name('admin.faq.destroy');
-    Route::get('/admin/vouchers', [VoucherController::class, 'index'])->name('admin.vouchers');
-    Route::post('/admin/vouchers', [VoucherController::class, 'store'])->name('admin.vouchers.store');
-    Route::get('/admin/vouchers/{voucher}/edit', [VoucherController::class, 'edit'])->name('admin.vouchers.edit');
-    Route::put('/admin/vouchers/{voucher}', [VoucherController::class, 'update'])->name('admin.vouchers.update');
-    Route::delete('/admin/vouchers/{voucher}', [VoucherController::class, 'destroy'])->name('admin.vouchers.delete');
+    Route::get('/admin/vouchers', [VoucherEditController::class, 'index'])->name('admin.vouchers');
+    Route::post('/admin/vouchers', [VoucherEditController::class, 'store'])->name('admin.vouchers.store');
+    Route::get('/admin/vouchers/{voucher}/edit', [VoucherEditController::class, 'edit'])->name('admin.vouchers.edit');
+    Route::put('/admin/vouchers/{voucher}', [VoucherEditController::class, 'update'])->name('admin.vouchers.update');
+    Route::delete('/admin/vouchers/{voucher}', [VoucherEditController::class, 'destroy'])->name('admin.vouchers.delete');
 });
 
 
