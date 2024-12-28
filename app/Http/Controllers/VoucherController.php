@@ -9,53 +9,41 @@ class VoucherController extends Controller
 {
     public function index()
     {
-    $vouchers = Voucher::all();
-    return view('vouchers.index', compact('vouchers'));
+        $vouchers = Voucher::where('expiry_date', '>', now())
+                          ->orderBy('expiry_date')
+                          ->get();
+        return view('pages.voucher', compact('vouchers'));
     }
 
-
-    public function create()
+    public function redeem(Request $request)
     {
-        return view('vouchers.create');
-    }
+        $voucher = Voucher::where('code', $request->code)
+                         ->where('expiry_date', '>', now())
+                         ->first();
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'code' => 'required|unique:vouchers|max:255',
-            'discount' => 'required|numeric|min:0|max:100',
-            'expiry_date' => 'required|date|after:today',
+        if (!$voucher) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Voucher tidak valid atau sudah kadaluarsa'
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Voucher berhasil digunakan',
+            'discount' => $voucher->discount
         ]);
-
-        Voucher::create($request->all());
-        return redirect()->route('vouchers.index')->with('success', 'Voucher created successfully.');
     }
 
-    public function show(Voucher $voucher)
+    public function check($code)
     {
-        return view('vouchers.show', compact('voucher'));
-    }
+        $voucher = Voucher::where('code', $code)
+                         ->where('expiry_date', '>', now())
+                         ->first();
 
-    public function edit(Voucher $voucher)
-    {
-        return view('vouchers.edit', compact('voucher'));
-    }
-
-    public function update(Request $request, Voucher $voucher)
-    {
-        $request->validate([
-            'code' => 'required|max:255|unique:vouchers,code,' . $voucher->id,
-            'discount' => 'required|numeric|min:0|max:100',
-            'expiry_date' => 'required|date|after:today',
+        return response()->json([
+            'valid' => $voucher ? true : false,
+            'discount' => $voucher ? $voucher->discount : 0
         ]);
-
-        $voucher->update($request->all());
-        return redirect()->route('vouchers.index')->with('success', 'Voucher updated successfully.');
-    }
-
-    public function destroy(Voucher $voucher)
-    {
-        $voucher->delete();
-        return redirect()->route('vouchers.index')->with('success', 'Voucher deleted successfully.');
     }
 }

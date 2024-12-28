@@ -13,16 +13,14 @@
                     <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">Tentang Kami</a>
                 </li>
                 @auth
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('voucher') ? 'active' : '' }}" href="{{ route('voucher') }}">Voucher</a>
-                </li>
-                @auth
-                    @if(Auth::user()->is_admin != 1)
+                @if(Auth::user()->is_admin != 1)
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('voucher') ? 'active' : '' }}" href="{{ route('voucher') }}">Voucher</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('feedback') ? 'active' : '' }}" href="{{ route('feedback') }}">Feedback</a>
                         </li>
                     @endif
-                @endauth
                 @endauth
                 @auth
                 {{-- if it works, dont mess with it -gandhi probably --}}
@@ -61,6 +59,11 @@
                                 <li>
                                     <a class="dropdown-item" href="{{ route('admin.faq') }}">
                                         <i class="bi bi-question-circle"></i> FAQ Edit
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('admin.vouchers') }}">
+                                        <i class="bi bi-ticket-perforated"></i> Kelola Voucher
                                     </a>
                                 </li>
                             @endif

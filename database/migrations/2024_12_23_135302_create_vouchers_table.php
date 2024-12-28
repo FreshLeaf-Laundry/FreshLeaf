@@ -4,31 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVouchersTable extends Migration
+return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('vouchers', function (Blueprint $table) {
-            $table->id(); // Auto-incrementing ID
-            $table->string('code')->unique(); // Kode voucher (unik)
-            $table->decimal('discount', 5, 2); // Diskon dalam bentuk persen
-            $table->timestamp('expiry_date'); // Tanggal kadaluarsa
-            $table->timestamps(); // created_at dan updated_at
+            $table->id();
+            $table->string('code')->unique();
+            $table->decimal('discount', 10, 2);
+            $table->date('expiry_date');
+            $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('vouchers'); // Menghapus tabel voucher jika migration di-rollback
+        Schema::dropIfExists('vouchers');
     }
-}
+};

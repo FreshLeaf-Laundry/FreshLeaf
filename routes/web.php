@@ -5,8 +5,10 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FeedbackController;
-use App\Http\Controllers\UsermgtController;
+use App\Http\Controllers\Admin\UsermgtController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\VoucherEditController;
+use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 
@@ -24,9 +26,7 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('login.pos
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/voucher', function () {
-    return view('pages.voucher');
-})->name('voucher');
+Route::get('/voucher', [VoucherController::class, 'index'])->name('voucher');
 
 Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
 Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
@@ -35,12 +35,15 @@ Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.s
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
 
-// Route Profile
+// Route khusus user login
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/orders', [OrderController::class, 'show'])->name('orders.create');
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+    // Voucher Routes
+    Route::post('/voucher/redeem', [VoucherController::class, 'redeem'])->name('voucher.redeem');
+    Route::get('/voucher/check/{code}', [VoucherController::class, 'check'])->name('voucher.check');
 });
 
 // Route Khusus Admin
@@ -53,8 +56,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Route::post('/admin/faq/update/{id}', [FaqController::class, 'update'])->name('admin.faq.update');
     Route::post('faq/reorder', [FaqController::class, 'reorder'])->name('admin.faq.reorder');
     Route::delete('/admin/faq/{faq}', [FaqController::class, 'destroy'])->name('admin.faq.destroy');
+    Route::get('/admin/vouchers', [VoucherEditController::class, 'index'])->name('admin.vouchers');
+    Route::post('/admin/vouchers', [VoucherEditController::class, 'store'])->name('admin.vouchers.store');
+    Route::get('/admin/vouchers/{voucher}/edit', [VoucherEditController::class, 'edit'])->name('admin.vouchers.edit');
+    Route::put('/admin/vouchers/{voucher}', [VoucherEditController::class, 'update'])->name('admin.vouchers.update');
+    Route::delete('/admin/vouchers/{voucher}', [VoucherEditController::class, 'destroy'])->name('admin.vouchers.delete');
 });
-
-
-
-
