@@ -10,21 +10,23 @@ class UsersTableSeeder extends Seeder
 {
     public function run()
     {
-        // buat akun dengan role admin
+        // Admin account
         User::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
-            'password' => Hash::make('admin123'), 
+            'password' => Hash::make('admin123'),
             'is_admin' => '1',
+            'address' => 'Jl. Admin No. 1'
         ]);
 
-        // buat 10 akun user
+        // Regular users
         for ($i = 1; $i <= 10; $i++) {
             User::create([
                 'name' => "User {$i}",
                 'email' => "user{$i}@gmail.com",
                 'password' => Hash::make('user123'),
                 'is_admin' => '0',
+                'address' => "Jl. User No. {$i}"
             ]);
         }
     }

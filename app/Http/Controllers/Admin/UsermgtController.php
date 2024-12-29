@@ -34,18 +34,20 @@ class UsermgtController extends Controller
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:6',
-                'is_admin' => 'required|boolean'
+                'password' => 'required|string|min:8',
+                'is_admin' => 'required|boolean',
+                'address' => 'nullable|string|max:255'
             ]);
 
             User::create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
-                'is_admin' => $validated['is_admin']
+                'is_admin' => $validated['is_admin'],
+                'address' => $validated['address']
             ]);
 
-            return redirect()->back()->with('success', 'User created successfully!');
+            return redirect()->route('admin.usermgt')->with('success', 'User created successfully');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Failed to create user.');
         }

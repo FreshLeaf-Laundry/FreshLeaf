@@ -13,12 +13,12 @@
                     </div>
                 </div>
                 <h3 class="mt-3">{{ Auth::user()->name }}</h3>
-                <p class="text-muted">Member since {{ Auth::user()->created_at->format('F Y') }}</p>
+                <p class="text-muted">Anggota Sejak {{ Auth::user()->created_at->format('F Y') }}</p>
             </div>
 
             <div class="card shadow fade-in">
                 <div class="card-header bg-white">
-                    <h4 class="mb-0">Profile Settings</h4>
+                    <h4 class="mb-0">Pengaturan Akun</h4>
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -33,7 +33,7 @@
                         @method('PUT')
                         
                         <div class="mb-4">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="name" class="form-label">Nama</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" 
                                 id="name" name="name" value="{{ Auth::user()->name }}">
                             @error('name')
@@ -50,10 +50,19 @@
                             @enderror
                         </div>
 
+                        <div class="mb-4">
+                            <label for="address" class="form-label">Alamat</label>
+                            <input type="text" class="form-control @error('address') is-invalid @enderror" 
+                                id="address" name="address" value="{{ Auth::user()->address }}">
+                            @error('address')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <hr class="my-4">
 
                         <div class="mb-4">
-                            <label for="current_password" class="form-label">Current Password</label>
+                            <label for="current_password" class="form-label">Password Lama</label>
                             <input type="password" class="form-control @error('current_password') is-invalid @enderror" 
                                 id="current_password" name="current_password">
                             @error('current_password')
@@ -62,7 +71,7 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="new_password" class="form-label">New Password</label>
+                            <label for="new_password" class="form-label">Password Baru</label>
                             <input type="password" class="form-control @error('new_password') is-invalid @enderror" 
                                 id="new_password" name="new_password">
                             @error('new_password')
@@ -71,13 +80,13 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="new_password_confirmation" class="form-label">Confirm New Password</label>
+                            <label for="new_password_confirmation" class="form-label">Konfirmasi Password Baru</label>
                             <input type="password" class="form-control" 
                                 id="new_password_confirmation" name="new_password_confirmation">
                         </div>
 
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Update Profile</button>
+                            <button type="submit" class="btn btn-primary">Ubah Akun</button>
                         </div>
                     </form>
                 </div>

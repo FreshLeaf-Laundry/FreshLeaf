@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
             // masukin seeder lain kesini
             UsersTableSeeder::class,
             FaqSeeder::class,
-            VoucherSeeder::class
+            VoucherSeeder::class,
+            OrdersTableSeeder::class
             ]);
     }
 }

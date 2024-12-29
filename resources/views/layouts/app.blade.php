@@ -20,7 +20,7 @@
 
     {{-- Custom CSS  --}}
     @yield('styles')
-    {{-- @stack('styles') --}}
+    @stack('styles')
     
     <style>
         body {

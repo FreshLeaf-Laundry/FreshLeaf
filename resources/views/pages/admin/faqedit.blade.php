@@ -2,12 +2,12 @@
 
 @section('content')
 <div class="container-fluid px-4">
-    <h1 class="mt-4">Manage FAQs</h1>
+    <h1 class="mt-4">Pengaturan FAQ</h1>
     
-    <!-- Add FAQ Button -->
+    <!-- Create FAQ -->
     <div class="mb-4">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFaqModal">
-            Add New FAQ
+            Tambah FAQ Baru
         </button>
     </div>
 
@@ -21,10 +21,10 @@
             <table id="faqTable" class="table table-bordered">
                 <thead>
                     <tr>
-                        <th width="50px">Order</th>
-                        <th>Question</th>
-                        <th>Answer</th>
-                        <th width="200px">Actions</th>
+                        <th width="50px">Urutan</th>
+                        <th>Pertanyaan</th>
+                        <th>Jawaban</th>
+                        <th width="200px">Hapus</th>
                     </tr>
                 </thead>
                 <tbody id="faq-items">
@@ -137,6 +137,16 @@
     .dragging {
         opacity: 0.5;
         background: #f8f9fa;
+    }
+    .btn.btn-primary {
+        background-color: var(--hijau-tua-primary);
+        color: var(--krem-primary);
+        border: none;
+    }
+    .btn.btn-primary:hover {
+        background-color: var(--krem-primary);
+        color: var(--hijau-tua-primary);
+        border: 1px solid var(--hijau-tua-primary);
     }
 </style>
 @endpush

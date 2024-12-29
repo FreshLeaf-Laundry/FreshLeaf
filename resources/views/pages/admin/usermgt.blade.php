@@ -63,8 +63,9 @@
                         <table class="table table-bordered" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    <th>Nama</th>
                                     <th>Email</th>
+                                    <th>Alamat</th>
                                     <th>Role</th>
                                     <th>Created At</th>
                                     <th>Hapus Akun</th>
@@ -75,6 +76,7 @@
                                 <tr>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
+                                    <td>{{ $user->address }}</td>
                                     <td class="text-center">
                                         @if($user->is_admin)
                                             <span class="badge admin-badge px-3 py-2 fs-6">Admin</span>
