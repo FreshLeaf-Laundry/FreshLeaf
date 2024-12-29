@@ -39,8 +39,12 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    // Order Routes
     Route::get('/orders', [OrderController::class, 'show'])->name('orders.create');
     Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+    Route::get('/shipping', [OrderController::class, 'index'])->name('orders.index');
+
     // Voucher Routes
     Route::post('/voucher/redeem', [VoucherController::class, 'redeem'])->name('voucher.redeem');
     Route::get('/voucher/check/{code}', [VoucherController::class, 'check'])->name('voucher.check');
@@ -61,4 +65,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/vouchers/{voucher}/edit', [VoucherEditController::class, 'edit'])->name('admin.vouchers.edit');
     Route::put('/admin/vouchers/{voucher}', [VoucherEditController::class, 'update'])->name('admin.vouchers.update');
     Route::delete('/admin/vouchers/{voucher}', [VoucherEditController::class, 'destroy'])->name('admin.vouchers.delete');
+    Route::get('/order/admin', [OrderController::class, 'index_admin'])->name('admin.orders.admin');
+    Route::put('/orders/{order}', [OrderController::class, 'update'])->name('admin.orders.update');
 });

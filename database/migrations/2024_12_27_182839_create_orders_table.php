@@ -13,12 +13,16 @@ return new class extends Migration
     {
          Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
             $table->decimal('kg', 8, 2);
             $table->dateTime('order_date');
             $table->dateTime('pickup_date')->nullable();
             $table->decimal('total_price', 10, 2);
+            $table->enum('status', ['menunggu', 'proses', 'diantar'])
+              ->default('menunggu');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

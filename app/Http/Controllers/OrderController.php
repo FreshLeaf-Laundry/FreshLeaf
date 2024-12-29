@@ -34,6 +34,31 @@ class OrderController extends Controller
             'kg' => $request->kg,
         ]);
 
-        return redirect()->route('orders.create')->with('success', 'Pesanan berhasil dibuat!');
+        return redirect()->route('orders.index')->with('success', 'Pesanan berhasil dibuat!');
+    }
+
+    public function index()
+    {
+        $orders = Order::where('user_id', Auth::id())->with('user')->orderBy('order_date', 'desc')->get();
+
+        return view('pages.shipping', compact('orders'));
+    }
+
+    public function index_admin()
+    {
+        $orders = Order::with('user')->orderBy('order_date', 'desc')->get();
+        return view('pages.admin.invoice', compact('orders'));
+    }
+
+   public function update(Request $request, Order $order)
+    {
+        $request->validate([
+            'status' => ['required', 'in:menunggu,proses,diantar']
+        ]);
+
+        $order->status = $request->status;
+        $order->save();
+
+        return redirect()->route('admin.orders.admin')->with('success', 'Status pesanan berhasil diperbarui!');
     }
 }
