@@ -24,12 +24,9 @@ Route::get('/about', function () {
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login.post')->middleware('guest');
 
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/voucher', [VoucherController::class, 'index'])->name('voucher');
 
-Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
-Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
 // Route Register
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
@@ -37,8 +34,13 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 
 // Route khusus user login
 Route::middleware('auth')->group(function () {
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    
+    // Feedback Routes
+    Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
+    Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
 
     // Order Routes
     Route::get('/orders', [OrderController::class, 'show'])->name('orders.create');
@@ -52,19 +54,25 @@ Route::middleware('auth')->group(function () {
 
 // Route Khusus Admin
 Route::middleware(['auth', 'admin'])->group(function () {
+    // User Management Routes
     Route::get('/admin/users', [UsermgtController::class, 'index'])->name('admin.usermgt');
     Route::post('/admin/users', [UsermgtController::class, 'store'])->name('admin.users.store');
     Route::delete('/admin/users/{user}', [UsermgtController::class, 'deleteUser'])->name('admin.users.delete');
+
+    // FAQ Routes
     Route::get('/admin/faq', [FaqController::class, 'index'])->name('admin.faq');
     Route::post('/admin/faq', [FaqController::class, 'store'])->name('admin.faq.store');
-    // Route::post('/admin/faq/update/{id}', [FaqController::class, 'update'])->name('admin.faq.update');
     Route::post('faq/reorder', [FaqController::class, 'reorder'])->name('admin.faq.reorder');
     Route::delete('/admin/faq/{faq}', [FaqController::class, 'destroy'])->name('admin.faq.destroy');
+
+    // Voucher Routes
     Route::get('/admin/vouchers', [VoucherEditController::class, 'index'])->name('admin.vouchers');
     Route::post('/admin/vouchers', [VoucherEditController::class, 'store'])->name('admin.vouchers.store');
     Route::get('/admin/vouchers/{voucher}/edit', [VoucherEditController::class, 'edit'])->name('admin.vouchers.edit');
     Route::put('/admin/vouchers/{voucher}', [VoucherEditController::class, 'update'])->name('admin.vouchers.update');
     Route::delete('/admin/vouchers/{voucher}', [VoucherEditController::class, 'destroy'])->name('admin.vouchers.delete');
+
+    // Order Routes
     Route::get('/order/admin', [OrderController::class, 'index_admin'])->name('admin.orders.admin');
     Route::put('/orders/{order}', [OrderController::class, 'update'])->name('admin.orders.update');
 });

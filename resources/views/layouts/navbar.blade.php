@@ -51,7 +51,7 @@
                             @if(Auth::user()->is_admin == 1)
                                 <li>
                                     <a class="dropdown-item" href="{{ route('admin.usermgt') }}">
-                                        <i class="bi bi-speedometer2"></i> Users Management
+                                        <i class="bi bi-speedometer2"></i> Accounts Management
                                     </a>
                                 </li>
                                 <li>
