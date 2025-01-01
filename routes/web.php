@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\VoucherEditController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Admin\StoreEditController;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -75,4 +76,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Order Routes
     Route::get('/order/admin', [OrderController::class, 'index_admin'])->name('admin.orders.admin');
     Route::put('/orders/{order}', [OrderController::class, 'update'])->name('admin.orders.update');
+
+    // Store Routes
+    Route::get('/admin/store', [StoreEditController::class, 'index'])->name('admin.store');
+    Route::post('/admin/store', [StoreEditController::class, 'store'])->name('admin.store.store');
+    Route::delete('/admin/store/{id}', [StoreEditController::class, 'destroy'])->name('admin.store.destroy');
 });

@@ -13,17 +13,14 @@ class OrdersTableSeeder extends Seeder
         $users = User::where('is_admin', 0)->get();
 
         foreach ($users as $user) {
-            // Create 2 orders for each user
+            // buat 2 order untuk setiap user
             for ($i = 1; $i <= 2; $i++) {
                 Order::create([
                     'user_id' => $user->id,
-                    'name' => $user->name,
-                    'phone' => '08' . rand(1000000000, 9999999999),
-                    'address' => $user->address,
-                    'product' => 'Product ' . $i,
-                    'quantity' => rand(1, 5),
-                    'status' => rand(0, 1) ? 'pending' : 'completed',
-                    'created_at' => now()->subDays(rand(1, 30))
+                    'kg' => rand(1, 10),
+                    'order_date' => now()->subDays(rand(1, 30)),
+                    'pickup_date' => now()->addDays(rand(1, 7)),
+                    'total_price' => rand(50000, 200000)
                 ]);
             }
         }

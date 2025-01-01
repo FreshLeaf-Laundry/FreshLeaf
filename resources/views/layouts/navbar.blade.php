@@ -74,6 +74,11 @@
                                         <i class="bi bi-ticket-perforated"></i> Kelola Order
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('admin.store') }}">
+                                        <i class="bi bi-shop"></i> Store Management
+                                    </a>
+                                </li>
                             @endif
                             @auth
                                 @unless(auth()->user()->is_admin)
