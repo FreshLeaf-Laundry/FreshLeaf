@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\VoucherEditController;
 use App\Http\Controllers\VoucherController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Admin\StoreEditController;
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\CartController;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -28,6 +30,7 @@ Route::post('/login', [LoginController::class, 'authenticate'])->name('login.pos
 
 Route::get('/voucher', [VoucherController::class, 'index'])->name('voucher');
 
+Route::get('/store', [StoreController::class, 'index'])->name('store');
 
 // Route Register
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
@@ -51,6 +54,11 @@ Route::middleware('auth')->group(function () {
     // Voucher Routes
     Route::post('/voucher/redeem', [VoucherController::class, 'redeem'])->name('voucher.redeem');
     Route::get('/voucher/check/{code}', [VoucherController::class, 'check'])->name('voucher.check');
+
+    // Cart Routes
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::delete('/cart/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
 });
 
 // Route Khusus Admin
@@ -59,7 +67,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/users', [UsermgtController::class, 'index'])->name('admin.usermgt');
     Route::post('/admin/users', [UsermgtController::class, 'store'])->name('admin.users.store');
     Route::delete('/admin/users/{user}', [UsermgtController::class, 'deleteUser'])->name('admin.users.delete');
-
+    
     // FAQ Routes
     Route::get('/admin/faq', [FaqController::class, 'index'])->name('admin.faq');
     Route::post('/admin/faq', [FaqController::class, 'store'])->name('admin.faq.store');
@@ -84,3 +92,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/store/{id}', [StoreEditController::class, 'show'])->name('admin.store.show');
     Route::put('/admin/store/{id}', [StoreEditController::class, 'update'])->name('admin.store.update');
 });
+
+
+
+
+

@@ -31,6 +31,9 @@
                         @csrf
                     </form>
                 @endauth
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('store') ? 'active' : '' }}" href="{{ route('store') }}">Store</a>
+                </li>
             </ul>
             <ul class="navbar-nav"> <!-- ul untuk tombol login/register -->
                 @guest
@@ -83,10 +86,19 @@
                             @auth
                                 @unless(auth()->user()->is_admin)
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('profile.edit') ? 'active' : '' }}" href="{{ route('profile.edit') }}">Profile</a>
+                                        <a class="nav-link {{ request()->routeIs('profile.edit') ? 'active' : '' }}" href="{{ route('profile.edit') }}">
+                                            <i class="bi bi-person"></i> Profile
+                                        </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link {{ request()->routeIs('orders.index') ? 'active' : '' }}" href="{{ route('orders.index') }}">Order Saya</a>
+                                        <a class="nav-link {{ request()->routeIs('orders.index') ? 'active' : '' }}" href="{{ route('orders.index') }}">
+                                            <i class="bi bi-box"></i> Order Cucian Saya
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ request()->routeIs('cart.index') ? 'active' : '' }}" href="{{ route('cart.index') }}">
+                                            <i class="bi bi-cart"></i> Keranjang Belanja
+                                        </a>
                                     </li>
                                 @endunless
                             @endauth
