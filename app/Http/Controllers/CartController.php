@@ -26,28 +26,41 @@ class CartController extends Controller
                 'quantity' => 'required|integer|min:1'
             ]);
 
-            // cek apakah barang ada dan stoknya cukup
+            // cek apakah stok cukup
             $item = ItemsStore::findOrFail($validated['item_id']);
             if ($item->stock < $validated['quantity']) {
                 return back()->with('error', 'Stok barang tidak tersedia.');
             }
 
-            // cek apakah barang sudah ada di keranjang
+            // cek klo udh di keranjang
             $existingItem = Cart::where('user_id', Auth::id())
                               ->where('item_id', $validated['item_id'])
                               ->first();
 
             if ($existingItem) {
-                // ubah quantity jika sudah ada di keranjang
+                // cek klo stok cukup
+                if ($item->stock < ($existingItem->quantity + $validated['quantity'])) {
+                    return back()->with('error', 'Stok barang tidak mencukupi.');
+                }
+
+                // update quantity
                 $existingItem->quantity += $validated['quantity'];
                 $existingItem->save();
+
+                // update stok
+                $item->stock -= $validated['quantity'];
+                $item->save();
             } else {
-                // tambahkan barang baru ke keranjang
+                // tambah barang baru
                 Cart::create([
                     'user_id' => Auth::id(),
                     'item_id' => $validated['item_id'],
                     'quantity' => $validated['quantity']
                 ]);
+
+                // update stok
+                $item->stock -= $validated['quantity'];
+                $item->save();
             }
 
             return back()->with('success', 'Barang berhasil ditambahkan ke keranjang belanja!');
@@ -62,7 +75,12 @@ class CartController extends Controller
             $cartItem = Cart::where('user_id', Auth::id())
                            ->where('id', $id)
                            ->firstOrFail();
-                           
+        
+            // update stok
+            $item = ItemsStore::findOrFail($cartItem->item_id);
+            $item->stock += $cartItem->quantity;
+            $item->save();
+            
             $cartItem->delete();
             
             return back()->with('success', 'Barang berhasil dihapus dari keranjang belanja!');

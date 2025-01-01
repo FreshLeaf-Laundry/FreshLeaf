@@ -76,15 +76,40 @@
 
         <div class="text-end mt-4">
             <a href="{{ route('store') }}" class="btn btn-outline-primary">
-                Continue Shopping
+                Lanjutkan Belanja
             </a>
-            <button class="btn btn-primary">
-                Proceed to Checkout
-            </button>
+            <a href="{{ route('checkout.index') }}" class="btn btn-primary">
+                Lanjutkan Checkout
+            </a>
         </div>
     @endif
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    // Show error message if exists
+    @if(session('error'))
+        Swal.fire({
+            title: 'Error!',
+            text: '{{ session('error') }}',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    @endif
+
+    // Show success message if exists
+    @if(session('success'))
+        Swal.fire({
+            title: 'Berhasil!',
+            text: '{{ session('success') }}',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    @endif
+</script>
+@endpush
+
 @push('styles')
 <style>
     .btn.btn-primary {
