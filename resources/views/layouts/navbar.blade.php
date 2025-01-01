@@ -23,6 +23,9 @@
                          <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('orders.create') ? 'active' : '' }}" href="{{ route('orders.create') }}">Order</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('schedule') ? 'active' : '' }}" href="{{ route('schedule') }}">Delivery</a>
+                        </li>
                     @endif
                 @endauth
                 @auth
@@ -75,6 +78,11 @@
                                 <li>
                                     <a class="dropdown-item" href="{{ route('admin.orders.admin') }}">
                                         <i class="bi bi-ticket-perforated"></i> Kelola Order
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('admin.schedule') }}">
+                                        <i class="bi bi-calendar-check"></i> Kelola Delivery
                                     </a>
                                 </li>
                                 <li>

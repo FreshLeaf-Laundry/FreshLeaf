@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\StoreEditController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\Admin\ScheduleEditController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -64,6 +66,10 @@ Route::middleware('auth')->group(function () {
     // Checkout Routes
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
+
+    // Schedule Routes
+    Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule');
+    Route::delete('/schedule/{schedule}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
 });
 
 // Route Khusus Admin
@@ -96,7 +102,16 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/admin/store/{id}', [StoreEditController::class, 'destroy'])->name('admin.store.destroy');
     Route::get('/admin/store/{id}', [StoreEditController::class, 'show'])->name('admin.store.show');
     Route::put('/admin/store/{id}', [StoreEditController::class, 'update'])->name('admin.store.update');
+
+    // Schedule Routes
+    Route::get('/admin/schedule', [ScheduleEditController::class, 'index'])->name('admin.schedule');
+    Route::post('/admin/schedule', [ScheduleEditController::class, 'store'])->name('admin.schedule.store');
+    Route::delete('/admin/schedule/{id}', [ScheduleEditController::class, 'destroy'])->name('admin.schedule.destroy');
+    Route::get('/admin/schedule/{id}', [ScheduleEditController::class, 'show'])->name('admin.schedule.show');
+    Route::put('/admin/schedule/{id}', [ScheduleEditController::class, 'update'])->name('admin.schedule.update');
+    Route::delete('/admin/schedule/{id}', [ScheduleEditController::class, 'destroy'])->name('admin.schedule.delete');
 });
+
 
 
 
