@@ -4,9 +4,26 @@
 <div class="container-fluid">
     <h1 class="h3 mb-4">Store Management</h1>
 
-    <!-- Add Item Button -->
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Debug Info:</strong>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
+
+    <!-- tambah barang -->
     <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#addItemModal">
-        <i class="bi bi-plus-circle"></i> Add New Item
+        <i class="bi bi-plus-circle"></i> Tambah Barang
     </button>
 
     <!-- Items Table -->
@@ -16,13 +33,13 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Stock</th>
-                            <th>Category</th>
+                            <th>Gambar</th>
+                            <th>Nama</th>
+                            <th>Harga</th>
+                            <th>Stok</th>
+                            <th>Kategori</th>
                             <th>Status</th>
-                            <th>Actions</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,51 +84,104 @@
     </div>
 </div>
 
-<!-- Add Item Modal -->
+<!-- Modal Tambah Barang -->
 <div class="modal fade" id="addItemModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add New Item</h5>
+                <h5 class="modal-title">Tambah Barang</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <form action="{{ route('admin.store.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label class="form-label">Name</label>
+                        <label class="form-label">Nama</label>
                         <input type="text" name="name" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Description</label>
+                        <label class="form-label">Deskripsi</label>
                         <textarea name="description" class="form-control" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Price</label>
+                        <label class="form-label">Harga</label>
                         <input type="number" name="price" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Stock</label>
+                        <label class="form-label">Stok</label>
                         <input type="number" name="stock" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Category</label>
+                        <label class="form-label">Kategori</label>
                         <input type="text" name="category" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Image</label>
+                        <label class="form-label">Gambar</label>
                         <input type="file" name="image" class="form-control" accept="image/*">
                     </div>
                     <div class="mb-3">
                         <div class="form-check">
                             <input type="checkbox" name="is_active" class="form-check-input" checked>
+                            <label class="form-check-label">Aktif</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Tambah Barang</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Item Modal -->
+<div class="modal fade" id="editItemModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Item</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="" method="POST" enctype="multipart/form-data" id="editItemForm">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nama</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Deskripsi</label>
+                        <textarea name="description" class="form-control" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Harga</label>
+                        <input type="number" name="price" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Stok</label>
+                        <input type="number" name="stock" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Kategori</label>
+                        <input type="text" name="category" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Current Image</label>
+                        <img id="currentImage" src="" alt="Current Item Image" class="img-fluid mb-2" style="max-height: 100px;">
+                        <input type="file" name="image" class="form-control" accept="image/*">
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input type="checkbox" name="is_active" class="form-check-input">
                             <label class="form-check-label">Active</label>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Add Item</button>
+                    <button type="submit" class="btn btn-primary">Update Item</button>
                 </div>
             </form>
         </div>
@@ -123,26 +193,78 @@
     document.addEventListener('DOMContentLoaded', function() {
         // Delete confirmation
         const deleteForms = document.querySelectorAll('.delete-form');
-        deleteForms.forEach(form => {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        this.submit();
-                    }
+        if (deleteForms) {
+            deleteForms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    Swal.fire({
+                        title: 'Apakah Anda yakin?',
+                        text: "Hapus barang ini?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ya, hapus!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.submit();
+                        }
+                    });
                 });
+            });
+        }
+
+        // Form debugging (if needed)
+        const addItemForm = document.getElementById('addItemForm');
+        if (addItemForm) {
+            addItemForm.addEventListener('submit', function(e) {
+                // Your form debug code here
+            });
+        }
+
+        // Edit item functionality
+        const editButtons = document.querySelectorAll('.edit-item');
+        const editForm = document.getElementById('editItemForm');
+
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const itemId = this.dataset.item;
+                const url = `/admin/store/${itemId}`;
+                
+                // Fetch item data
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        editForm.action = `/admin/store/${itemId}`;
+                        editForm.querySelector('[name="name"]').value = data.name;
+                        editForm.querySelector('[name="description"]').value = data.description;
+                        editForm.querySelector('[name="price"]').value = data.price;
+                        editForm.querySelector('[name="stock"]').value = data.stock;
+                        editForm.querySelector('[name="category"]').value = data.category;
+                        editForm.querySelector('[name="is_active"]').checked = data.is_active;
+                        
+                        const currentImage = document.getElementById('currentImage');
+                        currentImage.src = '/' + data.image_path;
+                    });
             });
         });
     });
 </script>
+@endpush
+@push('styles')
+<style>
+    .btn.btn-primary {
+        background-color: var(--hijau-tua-primary);
+        color: var(--krem-primary);
+        border: none;
+    }
+    .btn.btn-primary:hover {
+        background-color: var(--krem-primary);
+        color: var(--hijau-tua-primary);
+        border: 1px solid var(--hijau-tua-primary);
+    }
+</style>
+
 @endpush
 @endsection

@@ -81,4 +81,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/store', [StoreEditController::class, 'index'])->name('admin.store');
     Route::post('/admin/store', [StoreEditController::class, 'store'])->name('admin.store.store');
     Route::delete('/admin/store/{id}', [StoreEditController::class, 'destroy'])->name('admin.store.destroy');
+    Route::get('/admin/store/{id}', [StoreEditController::class, 'show'])->name('admin.store.show');
+    Route::put('/admin/store/{id}', [StoreEditController::class, 'update'])->name('admin.store.update');
 });

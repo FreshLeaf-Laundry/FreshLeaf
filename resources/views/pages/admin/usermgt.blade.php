@@ -208,7 +208,7 @@
 </script>
 @endpush
 
-@section('styles')
+@push('styles')
 <style>
     .border-left-primary {
         border-left: .25rem solid #4e73df!important;
@@ -252,6 +252,5 @@
         border: 1px solid var(--hijau-tua-primary);
     }
 </style>
+@endpush
 @endsection
-@endsection
-

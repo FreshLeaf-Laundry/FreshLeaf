@@ -11,33 +11,33 @@ class StoreTableSeeder extends Seeder
     {
         $items = [
             [
-                'name' => 'Product 1',
-                'slug' => 'product-1',
-                'description' => 'Description for product 1',
+                'name' => 'ecoClean Detergent',
+                'slug' => 'ecoClean-detergent',
+                'description' => 'Detergent ramah lingkungan',
                 'price' => 100000,
                 'stock' => 10,
-                'category' => 'Category A',
-                'image_path' => 'images/store/default.jpg',
+                'category' => 'Detergent',
+                'image_path' => 'images/store/ecodetergent.jpg',
                 'is_active' => true
             ],
             [
-                'name' => 'Product 2',
-                'slug' => 'product-2',
-                'description' => 'Description for product 2',
+                'name' => 'ecoClean Softener',
+                'slug' => 'ecoClean-softener',
+                'description' => 'Softener ramah lingkungan',
                 'price' => 200000,
                 'stock' => 15,
-                'category' => 'Category B',
-                'image_path' => 'images/store/default.jpg',
+                'category' => 'Softener',
+                'image_path' => 'images/store/ecodetergent.jpg',
                 'is_active' => true
             ],
             [
-                'name' => 'Product 3',
-                'slug' => 'product-3',
-                'description' => 'Description for product 3',
+                'name' => 'ecoClean Bleach',
+                'slug' => 'ecoClean-bleach',
+                'description' => 'Pemutih ramah lingkungan',
                 'price' => 150000,
                 'stock' => 20,
-                'category' => 'Category A',
-                'image_path' => 'images/store/default.jpg',
+                'category' => 'Pemutih',
+                'image_path' => 'images/store/ecodetergent.jpg',
                 'is_active' => true
             ],
         ];
