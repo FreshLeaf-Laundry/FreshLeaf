@@ -68,22 +68,26 @@
 
 @push('scripts')
 <script>
-    // Show error message if exists
-    @if(session('error'))
-        Swal.fire({
-            title: 'Error!',
-            text: '{{ session('error') }}',
-            icon: 'error',
-            confirmButtonText: 'OK'
-        });
-    @endif
-
-    // Show success message if exists
     @if(session('success'))
         Swal.fire({
             title: 'Berhasil!',
             text: '{{ session('success') }}',
             icon: 'success',
+            showCancelButton: true,
+            confirmButtonText: 'Lihat Keranjang',
+            cancelButtonText: 'Lanjut Belanja'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '{{ route("cart.index") }}';
+            }
+        });
+    @endif
+
+    @if(session('error'))
+        Swal.fire({
+            title: 'Error!',
+            text: '{{ session('error') }}',
+            icon: 'error',
             confirmButtonText: 'OK'
         });
     @endif

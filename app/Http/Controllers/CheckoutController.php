@@ -32,15 +32,22 @@ class CheckoutController extends Controller
         try {
             $validated = $request->validate([
                 'payment_method' => 'required|in:transfer,cod',
-                'voucher' => 'nullable|string'
+                'voucher' => 'nullable|string',
+                'print_invoice' => 'nullable|string'
             ]);
 
-            $total = Cart::where('user_id', Auth::id())
-                        ->with('item')
-                        ->get()
-                        ->sum(function($item) {
-                            return $item->quantity * $item->item->price;
-                        });
+            // Get cart items first
+            $cartItems = Cart::where('user_id', Auth::id())
+                            ->with('item')
+                            ->get();
+
+            if ($cartItems->isEmpty()) {
+                return back()->with('error', 'Keranjang belanja Anda kosong.');
+            }
+
+            $total = $cartItems->sum(function($item) {
+                return $item->quantity * $item->item->price;
+            });
 
             // Voucher logic
             $discount = 0;
@@ -52,9 +59,17 @@ class CheckoutController extends Controller
                 if ($voucher) {
                     $discount = $total * ($voucher->discount / 100);
                     $total = $total - $discount;
-                } else {
-                    return back()->with('error', 'Kode voucher tidak valid atau sudah kadaluarsa.');
                 }
+            }
+
+            // Process the order and update stock
+            foreach($cartItems as $cartItem) {
+                $item = $cartItem->item;
+                if ($item->stock < $cartItem->quantity) {
+                    return back()->with('error', "Stok {$item->name} tidak mencukupi.");
+                }
+                $item->stock -= $cartItem->quantity;
+                $item->save();
             }
 
             // Clear cart
@@ -66,7 +81,17 @@ class CheckoutController extends Controller
             }
             $message .= ' Terima kasih telah berbelanja.';
 
-            return redirect()->route('store')->with('success', $message);
+            // If print invoice is checked, show invoice
+            if ($request->has('print_invoice')) {
+                return view('pages.invoice', [
+                    'cartItems' => $cartItems,
+                    'total' => $total,
+                    'discount' => $discount
+                ]);
+            }
+
+            // If not printing invoice, redirect to home with success message
+            return redirect()->route('home')->with('success', $message);
 
         } catch (\Exception $e) {
             return back()->with('error', 'Error: ' . $e->getMessage());
