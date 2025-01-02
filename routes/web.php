@@ -46,10 +46,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    
+
     // Feedback Routes
     Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback');
     Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
+    Route::get('/feedback/{id}/edit', [FeedbackController::class, 'edit'])->name('feedback.edit');
+    Route::put('/feedback/{id}', [FeedbackController::class, 'update'])->name('feedback.update');
+    Route::delete('/feedback/{id}', [FeedbackController::class, 'destroy'])->name('feedback.destroy');
 
     // Order Routes
     Route::get('/orders', [OrderController::class, 'show'])->name('orders.create');
@@ -64,7 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
     Route::delete('/cart/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
-    
+
     // Checkout Routes
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
@@ -80,7 +83,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/users', [UsermgtController::class, 'index'])->name('admin.usermgt');
     Route::post('/admin/users', [UsermgtController::class, 'store'])->name('admin.users.store');
     Route::delete('/admin/users/{user}', [UsermgtController::class, 'deleteUser'])->name('admin.users.delete');
-    
+
     // FAQ Routes
     Route::get('/admin/faq', [FaqController::class, 'index'])->name('admin.faq');
     Route::post('/admin/faq', [FaqController::class, 'store'])->name('admin.faq.store');
