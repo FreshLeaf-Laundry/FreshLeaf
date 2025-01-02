@@ -36,7 +36,7 @@ class CheckoutController extends Controller
                 'print_invoice' => 'nullable|string'
             ]);
 
-            // Get cart items first
+            // ambil barang dari cart
             $cartItems = Cart::where('user_id', Auth::id())
                             ->with('item')
                             ->get();
@@ -62,7 +62,7 @@ class CheckoutController extends Controller
                 }
             }
 
-            // Process the order and update stock
+            // update stock
             foreach($cartItems as $cartItem) {
                 $item = $cartItem->item;
                 if ($item->stock < $cartItem->quantity) {
@@ -72,7 +72,7 @@ class CheckoutController extends Controller
                 $item->save();
             }
 
-            // Clear cart
+            // bersihin cart
             Cart::where('user_id', Auth::id())->delete();
 
             $message = 'Pesanan berhasil! ';
@@ -81,7 +81,7 @@ class CheckoutController extends Controller
             }
             $message .= ' Terima kasih telah berbelanja.';
 
-            // If print invoice is checked, show invoice
+            // cetak invoice kalau dicentang
             if ($request->has('print_invoice')) {
                 return view('pages.invoice', [
                     'cartItems' => $cartItems,
@@ -90,7 +90,7 @@ class CheckoutController extends Controller
                 ]);
             }
 
-            // If not printing invoice, redirect to home with success message
+            // kalau gak dicentang
             return redirect()->route('home')->with('success', $message);
 
         } catch (\Exception $e) {
