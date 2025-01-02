@@ -2,7 +2,17 @@
 
 @section('content')
 <div class="container-fluid">
-    <h1 class="h3 mb-4">Store Management</h1>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Store Management</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <a href="/admin/store/export" class="btn btn-success me-2 btn-primary">
+                <i class="bi bi-file-excel"></i> Export Excel
+            </a>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">
+                <i class="bi bi-plus"></i> Tambah Item
+            </button>
+        </div>
+    </div>
 
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -20,11 +30,6 @@
         {{ session('error') }}
     </div>
     @endif
-
-    <!-- tambah barang -->
-    <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#addItemModal">
-        <i class="bi bi-plus-circle"></i> Tambah Barang
-    </button>
 
     <!-- Items Table -->
     <div class="card shadow mb-4">

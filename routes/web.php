@@ -17,6 +17,8 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Admin\ScheduleEditController;
 use App\Http\Controllers\ScheduleController;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ItemsstoreExport;
 
 Route::get('/', function () {
     return view('pages.home');
@@ -99,6 +101,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     // Store Routes
     Route::get('/admin/store', [StoreEditController::class, 'index'])->name('admin.store');
     Route::post('/admin/store', [StoreEditController::class, 'store'])->name('admin.store.store');
+    Route::get('/admin/store/export', function () {
+        return Excel::download(new \App\Exports\ItemsstoreExport, 'store-items.xlsx');
+    })->name('admin.store.export');
     Route::delete('/admin/store/{id}', [StoreEditController::class, 'destroy'])->name('admin.store.destroy');
     Route::get('/admin/store/{id}', [StoreEditController::class, 'show'])->name('admin.store.show');
     Route::put('/admin/store/{id}', [StoreEditController::class, 'update'])->name('admin.store.update');
@@ -110,6 +115,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/schedule/{id}', [ScheduleEditController::class, 'show'])->name('admin.schedule.show');
     Route::put('/admin/schedule/{id}', [ScheduleEditController::class, 'update'])->name('admin.schedule.update');
     Route::delete('/admin/schedule/{id}', [ScheduleEditController::class, 'destroy'])->name('admin.schedule.delete');
+
+    // Export Users
+    Route::get('admin/users/export', function () {
+        return Excel::download(new \App\Exports\UsersExport, 'users.xlsx');
+    })->name('admin.users.export');
+
 });
 
 
