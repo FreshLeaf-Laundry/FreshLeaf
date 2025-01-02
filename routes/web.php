@@ -93,6 +93,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/vouchers/{voucher}/edit', [VoucherEditController::class, 'edit'])->name('admin.vouchers.edit');
     Route::put('/admin/vouchers/{voucher}', [VoucherEditController::class, 'update'])->name('admin.vouchers.update');
     Route::delete('/admin/vouchers/{voucher}', [VoucherEditController::class, 'destroy'])->name('admin.vouchers.delete');
+    Route::get('/admin/vouchers/export', function () {
+        return Excel::download(new \App\Exports\VouchersExport, 'vouchers.xlsx');
+    })->name('admin.vouchers.export');
 
     // Order Routes
     Route::get('/order/admin', [OrderController::class, 'index_admin'])->name('admin.orders.admin');

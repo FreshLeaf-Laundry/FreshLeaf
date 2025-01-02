@@ -5,8 +5,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h3 class="card-title">Kelola Voucher</h3>
+                    <a href="{{ route('admin.vouchers.export') }}" class="btn btn-success">
+                        <i class="bi bi-file-earmark-excel"></i> Export Data
+                    </a>
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -110,6 +113,17 @@
     }
     
     .btn-primary:hover {
+        background-color: var(--kuning-secondary);
+        border-color: var(--kuning-secondary);
+        color: var(--hijau-tua-primary);
+    }
+    
+    .btn-success {
+        background-color: var(--hijau-tua-primary);
+        border-color: var(--hijau-tua-primary);
+    }
+    
+    .btn-success:hover {
         background-color: var(--kuning-secondary);
         border-color: var(--kuning-secondary);
         color: var(--hijau-tua-primary);

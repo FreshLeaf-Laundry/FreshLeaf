@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\VouchersExport;
 
 class VoucherEditController extends Controller
 {
@@ -30,5 +32,10 @@ class VoucherEditController extends Controller
     {
         $voucher->delete();
         return redirect()->back()->with('success', 'Voucher berhasil dihapus');
+    }
+
+    public function export() 
+    {
+        return Excel::download(new VouchersExport, 'vouchers.xlsx');
     }
 } 
