@@ -1,5 +1,5 @@
 @extends('layouts.app')
-{{-- test github --}}
+
 @section('title', 'Voucher')
 
 @section('content')
@@ -13,6 +13,7 @@
                             <th>No</th>
                             <th>Nama User</th>
                             <th>Pesan</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -21,16 +22,27 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $feedback->user->name }}</td>
                                 <td>{{ $feedback->message }}</td>
+                                <td>
+                                    <!-- Tombol Edit -->
+                                    <a href="{{ route('feedback.edit', $feedback->id) }}" class="btn btn-sm btn-warning">Edit</a>
+
+                                    <!-- Tombol Delete -->
+                                    <form action="{{ route('feedback.destroy', $feedback->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus feedback ini?')">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center">Belum ada feedback.</td>
+                                <td colspan="4" class="text-center">Belum ada feedback.</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
-        @else
+        @elseif (auth()->check() && !auth()->user()->is_admin)
             <h1>Hi! {{ auth()->user()->name }}</h1>
             <h3>Berikan Feedback</h3>
             @if (session('success'))
@@ -46,17 +58,49 @@
                 </div>
                 <button type="submit" class="btn btn-primary mt-3 mb-5">Kirim Feedback</button>
             </form>
-        @endif
 
+            <div class="container mt-4">
+                <h1>Semua Feedback</h1>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama User</th>
+                            <th>Pesan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($feedbacks2 as $feedback)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $feedback->user->name }}</td>
+                                <td>{{ $feedback->message }}</td>
+                                <td>
+                                    <!-- Tombol Edit -->
+                                    <a href="{{ route('feedback.edit', $feedback->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center">Belum ada feedback.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        @endif
     </div>
 @endsection
 
 @section('styles')
     <style>
-
+        /* Tambahkan gaya khusus di sini */
     </style>
 @endsection
 
 @section('scripts')
-    <script></script>
+    <script>
+        // Tambahkan skrip khusus di sini
+    </script>
 @endsection

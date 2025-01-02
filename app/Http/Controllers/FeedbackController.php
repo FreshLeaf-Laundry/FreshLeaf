@@ -24,7 +24,44 @@ class FeedbackController extends Controller
 
     public function index()
     {
+         $userId =  Auth::id();
+
+        $feedbacks2 = Feedback::with('user')
+            ->where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->get();
         $feedbacks = Feedback::with('user')->orderBy('created_at', 'desc')->get();
-        return view('pages.feedback', compact('feedbacks'));
+        return view('pages.feedback', compact('feedbacks', 'feedbacks2'));
+    }
+
+    public function edit($id)
+    {
+        $feedback = Feedback::findOrFail($id);
+
+        return view('pages.admin.edit_feedback', compact('feedback'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $feedback = Feedback::findOrFail($id);
+
+        $request->validate([
+            'message' => 'required|string|max:500',
+        ]);
+
+        $feedback->update([
+            'message' => $request->message,
+        ]);
+
+        return redirect()->route('feedback')->with('success', 'Feedback berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        $feedback = Feedback::findOrFail($id);
+
+        $feedback->delete();
+
+        return redirect()->route('feedback')->with('success', 'Feedback berhasil dihapus.');
     }
 }
