@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ItemsstoreExport;
 use App\Exports\ScheduleExport;
+use App\Http\Controllers\MidtransController;
 
 Route::get('/', function () {
     return view('pages.home');
@@ -76,6 +77,9 @@ Route::middleware('auth')->group(function () {
     // Schedule Routes
     Route::get('/schedule', [ScheduleController::class, 'index'])->name('schedule');
     Route::delete('/schedule/{schedule}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
+
+    // Midtrans Routes
+    Route::post('/midtrans/create', [MidtransController::class, 'create'])->name('midtrans.create');
 });
 
 // Route Khusus Admin
@@ -131,6 +135,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
     })->name('admin.users.export');
 
 });
+
+Route::post('/midtrans/callback', [MidtransController::class, 'callback'])
+    ->name('midtrans.callback')
+    ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]);
 
 
 

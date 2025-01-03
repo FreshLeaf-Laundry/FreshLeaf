@@ -64,7 +64,7 @@
                         <div class="mb-3">
                             <label class="form-label">Metode Pembayaran</label>
                             <select name="payment_method" class="form-select" required>
-                                <option value="transfer">Transfer Bank</option>
+                                <option value="midtrans">Midtrans</option>
                                 <option value="cod">Cash on Delivery</option>
                             </select>
                         </div>
