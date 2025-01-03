@@ -38,4 +38,22 @@ class VoucherEditController extends Controller
     {
         return Excel::download(new VouchersExport, 'vouchers.xlsx');
     }
+
+    public function edit(Voucher $voucher)
+    {
+        $vouchers = Voucher::latest()->get();
+        return view('pages.admin.vouchers.index', compact('vouchers', 'voucher'));
+    }
+
+    public function update(Request $request, Voucher $voucher)
+    {
+        $request->validate([
+            'code' => 'required|max:255|unique:vouchers,code,' . $voucher->id,
+            'discount' => 'required|numeric|min:0|max:100',
+            'expiry_date' => 'required|date|after:today',
+        ]);
+
+        $voucher->update($request->all());
+        return redirect()->route('admin.vouchers')->with('success', 'Voucher berhasil diperbarui');
+    }
 } 
