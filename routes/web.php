@@ -19,6 +19,7 @@ use App\Http\Controllers\ScheduleController;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ItemsstoreExport;
+use App\Exports\ScheduleExport;
 
 Route::get('/', function () {
     return view('pages.home');
@@ -118,9 +119,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/schedule', [ScheduleEditController::class, 'index'])->name('admin.schedule');
     Route::post('/admin/schedule', [ScheduleEditController::class, 'store'])->name('admin.schedule.store');
     Route::delete('/admin/schedule/{id}', [ScheduleEditController::class, 'destroy'])->name('admin.schedule.destroy');
-    Route::get('/admin/schedule/{id}', [ScheduleEditController::class, 'show'])->name('admin.schedule.show');
     Route::put('/admin/schedule/{id}', [ScheduleEditController::class, 'update'])->name('admin.schedule.update');
     Route::delete('/admin/schedule/{id}', [ScheduleEditController::class, 'destroy'])->name('admin.schedule.delete');
+    Route::get('/admin/schedule/export', function () {
+        return Excel::download(new \App\Exports\ScheduleExport, 'schedule.xlsx');
+    })->name('admin.schedule.export');
 
     // Export Users
     Route::get('admin/users/export', function () {

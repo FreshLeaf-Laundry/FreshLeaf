@@ -28,6 +28,11 @@ class ScheduleEditController extends Controller
         return redirect()->back()->with('success', 'Jadwal berhasil ditambahkan');
     }
 
+    public function export() 
+    {
+        return Excel::download(new ScheduleExport, 'schedule.xlsx');
+    }
+
     public function update(Request $request, $id)
     {
         $schedule = Schedule::findOrFail($id);

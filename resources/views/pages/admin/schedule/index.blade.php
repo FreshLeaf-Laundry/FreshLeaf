@@ -5,8 +5,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Jadwal Delivery</h3>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">Jadwal Delivery</h3>
+                    <a href="{{ route('admin.schedule.export') }}" class="btn btn-success">
+                        <i class="fas fa-file-excel"></i> Export Data
+                    </a>
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -146,6 +149,17 @@
         background-color: var(--kuning-secondary);
         border-color: var(--kuning-secondary);
         color: var(--hijau-tua-primary);
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+        color: white;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+        border-color: #1e7e34;
     }
 
     .status-select {
