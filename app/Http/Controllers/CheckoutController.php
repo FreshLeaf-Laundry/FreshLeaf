@@ -38,7 +38,7 @@ class CheckoutController extends Controller
                 'print_invoice' => 'nullable|string'
             ]);
 
-            // Get cart items first
+            // Ambil item di cart
             $cartItems = Cart::where('user_id', Auth::id())
                             ->with('item')
                             ->get();
@@ -64,11 +64,11 @@ class CheckoutController extends Controller
                 }
             }
 
-            // If payment method is Midtrans, create payment
+            // Kalau midtrans, buat payment
             if ($request->payment_method === 'midtrans') {
                 try {
                     // Debug total
-                    Log::info('Checkout amount:', ['total' => $total]);
+                    // Log::info('Checkout amount:', ['total' => $total]);
 
                     $midtransController = new MidtransController();
                     $response = $midtransController->create(new Request([
@@ -77,7 +77,7 @@ class CheckoutController extends Controller
 
                     $responseData = json_decode($response->getContent());
                     
-                    Log::info('Midtrans Response:', ['response' => $responseData]);  // Debug response
+                    // Log::info('Midtrans Response:', ['response' => $responseData]);  // Debug response
 
                     if (isset($responseData->token)) {
                         return redirect()->away('https://app.sandbox.midtrans.com/snap/v3/redirection/' . $responseData->token);
@@ -97,7 +97,7 @@ class CheckoutController extends Controller
                 }
             }
 
-            // Process the order and update stock
+            // Process order dan update stok
             foreach($cartItems as $cartItem) {
                 $item = $cartItem->item;
                 if ($item->stock < $cartItem->quantity) {
@@ -107,7 +107,7 @@ class CheckoutController extends Controller
                 $item->save();
             }
 
-            // Clear cart
+            // hapus barang dari cart
             Cart::where('user_id', Auth::id())->delete();
 
             $message = 'Pesanan berhasil! ';
@@ -116,7 +116,7 @@ class CheckoutController extends Controller
             }
             $message .= ' Terima kasih telah berbelanja.';
 
-            // If print invoice is checked, show invoice
+            // kalau invoice, invoice
             if ($request->has('print_invoice')) {
                 return view('pages.invoice', [
                     'cartItems' => $cartItems,
@@ -125,7 +125,7 @@ class CheckoutController extends Controller
                 ]);
             }
 
-            // If not printing invoice, redirect to home with success message
+            // kalau nggak return home
             return redirect()->route('home')->with('success', $message);
 
         } catch (\Exception $e) {
