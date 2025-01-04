@@ -44,12 +44,12 @@ class UsermgtController extends Controller
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
                 'is_admin' => $validated['is_admin'],
-                'address' => $validated['address']
+                'address' => $validated['address'] ?? null
             ]);
 
             return redirect()->route('admin.usermgt')->with('success', 'User created successfully');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to create user.');
+            dd('Failed to create user:', $e->getMessage(), $request->all());
         }
     }
 

@@ -15,4 +15,4 @@ class VerifyCsrfToken extends Middleware
         '/midtrans/notification',
         '/midtrans/callback'
     ];
-} 
+}

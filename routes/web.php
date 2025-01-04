@@ -138,7 +138,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 Route::post('/midtrans/callback', [MidtransController::class, 'callback'])
     ->name('midtrans.callback')
-    ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]);
+    ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
 
 
 
