@@ -1,66 +1,18 @@
-# Tutorial mulai
+## Pengaturan database
 
-## Yang harus udah diinstall
+### nama database: freshleaf
 
-
-- PHP 
-- Composer
-- MySQL 
-- Laravel 
-
-## Memulai
-
-### 1. Clone Repositori
-
-Pertama, clone repositori proyek ke folder kosong
+## .env untuk aplikasi
+### app maintenance, cache : file
 
 
-### 2. Buat .env baru
+## Setting untuk midtrans payment gateway
 
-copy .env.example yang udh gw buat ke .env (.env gabisa diupload ke github):
+### untuk pembayaran, hanya menggunakan sandbox. karena keterbatasan waktu dan kemampuan, belum bisa menggunakan callback untuk notifikasi pembayaran dari server midtrans, masih mengubah status pembayaran secara manual dari aplikasi
+
+### .env untuk midtrans
 ```
-cp .env.example .env
+MIDTRANS_SERVER_KEY=SB-Mid-server-CCU2Gn29QgoQpO_oSmy_nFT_
+MIDTRANS_CLIENT_KEY=SB-Mid-client-_zFwUZcICfvp5rJk
 ```
 
-### 3. Buat Database
-
-- Nyalain xampp / laragon
-- Buka **phpMyAdmin**.
-- Buat database baru dengan nama `freshleaf`.
-
-### 4. Instal Dependencies
-
-tulis ini di terminal buat install dependencies:
-```
-composer install
-```
-
-### 5. Generate key
-
-habistu tulis ini di terminal:
-```
-php artisan key:generate
-```
-
-### 6. Jalankan Migrasi
-
-kalau database udah ada, jalanin migration biar ada tabelnya:
-```
-php artisan migrate
-```
-
-### 6.5 Seeding Database
-buat ngisi database pake data template yang udah dibuat (yg login udh gw buat)
-```
-php artisan db:seed
-```
-
-### 7. Jalankan Aplikasi
-
-start development server biar keliatan websitenya kek apa:
-```
-php artisan serve
-```
-
-# Catatan
-commit nya ke branch master aja, nanti kalo udah biar gw merge ke branch backup
